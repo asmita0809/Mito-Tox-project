@@ -1,0 +1,65 @@
+==========================================================================
+MitoTox F0108 minus paper 163 (Xia 2018, Tox21 10K)
+==========================================================================
+records                     : 136   (of 1997 F0108 total)
+unique compounds            : 97
+result True (positive)      : 110
+result False (negative)     : 26
+source papers               : 9
+
+compounds also present in paper 163 : 21
+compounds NOT in paper 163          : 76
+
+per paper:
+  pap_id      n  True False  cmpds   year  journal
+  ----------------------------------------------------------------------
+  36         79    77     2     78   2012  Toxicological Sciences
+  4          25     8    17      5   2005  Hepatology
+  306        18    13     5     17   2015  Archives of Toxicology
+  15          5     4     1      3   2008  Toxicology and Applied Pharmacolog
+  6           4     3     1      1   2002  Hepatology
+  162         2     2     0      2   2014  Plos One
+  193         1     1     0      1   1994  Hepatology
+  284         1     1     0      1   2009  Biochemical Pharmacology
+  307         1     1     0      1   2019  Biochemical Society Transactions
+
+method:
+     79  Rh123 fluorescence (excitation 485 nm, emission 535 nm) are...
+     31  Measurement of mitochondrial membrane potential
+     18  High-content screening assay
+      4  (empty)
+      2  Assessment of Mitochondrial Membrane Potential
+      1  Assessment of Mitochondrial Membrane Potential; incubated i...
+      1  Assessment of Mitochondrial Membrane Potential; incubated i...
+
+animal_model:
+     82  liver mitochondria
+     32  hepatocytes
+     18  HepG2
+      4  (empty)
+
+species:
+     79  mouse
+     25  rat; Sprague–Dawley
+     18  Human
+      5  human
+      4  rat
+      4  (empty)
+      1  mouse; Crl/CD-l(1CR)BR Swiss
+
+criteria:
+     79  EC20
+     19  p < 0.05
+     18  MEC
+     10  p < 0.01
+     10  (empty)
+
+func_act:
+    117  decrease
+     10  Decrease
+      5  Affect
+      3  Increase
+      1  (empty)
+
+PubChem CID present      : 97 / 97 (100.0%)
+molecular_formula present: 97 / 97 (100.0%)

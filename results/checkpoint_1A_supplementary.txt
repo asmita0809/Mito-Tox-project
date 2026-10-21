@@ -1,0 +1,109 @@
+========================================================================
+F01 subtree (Transmembrane potential, all nodes) -> 2258 records
+  distinct compounds: 785
+  distinct papers   : 62
+
+  func_act                   True    False    total
+  --------------------------------------------------
+  decrease                   1699      318     2017
+  increase                     63       17       80
+  affect                       40       22       62
+  (empty)                      47        2       49
+  Decrease                     20        0       20
+  Affect                        1        9       10
+  induce                        6        2        8
+  Increase                      5        1        6
+  inhibit                       3        0        3
+  reduce                        2        0        2
+  enhance                       1        0        1
+  TOTAL                      1887      371     2258
+
+  top method  (38 distinct):
+     1861  MMP assay
+      109  (empty)
+       79  Rh123 fluorescence (excitation 485 nm, emission 535 n...
+       35  High-content screening assay
+       31  Measurement of mitochondrial membrane potential
+       31  Measurement of oxygen uptake
+       30  measurements of mitochondrial respiration; RST inhibi...
+       16  RST assay( Respiratory Screening Technology)-measurem...
+
+  top animal_model  (25 distinct):
+      698  hepatocytes
+      655  HepG2
+      620  qHTS-HepG2
+      108  liver mitochondria
+      103  (empty)
+       46  isolated liver mitochondria
+        3  rat cortical neurons and isolated rat liver mitochondria
+        3  PC12 cells (neuron-like )
+
+  top species  (15 distinct):
+     1245  human
+      689  rat
+      115  (empty)
+       81  mouse
+       56  rat; Sprague–Dawley
+       35  Human
+
+  top criteria  (14 distinct):
+     1865  IC50
+      189  (empty)
+       79  EC20
+       43  p < 0.05
+       35  MEC
+       19  p < 0.01
+       13  AC50 (μM)
+        4  not mentioned
+
+  dose empty: 448/2258   time empty: 2072/2258
+
+========================================================================
+F0108 only ('membrane potential') -> 1997 records
+  distinct compounds: 695
+  distinct papers   : 10
+
+  func_act                   True    False    total
+  --------------------------------------------------
+  decrease                   1669      309     1978
+  Decrease                     10        0       10
+  Affect                        0        5        5
+  Increase                      3        0        3
+  (empty)                       1        0        1
+  TOTAL                      1683      314     1997
+
+  top method  (8 distinct):
+     1861  MMP assay
+       79  Rh123 fluorescence (excitation 485 nm, emission 535 n...
+       31  Measurement of mitochondrial membrane potential
+       18  High-content screening assay
+        4  (empty)
+        2  Assessment of Mitochondrial Membrane Potential
+        1  Assessment of Mitochondrial Membrane Potential; incub...
+        1  Assessment of Mitochondrial Membrane Potential; incub...
+
+  top animal_model  (5 distinct):
+      653  hepatocytes
+      638  HepG2
+      620  qHTS-HepG2
+       82  liver mitochondria
+        4  (empty)
+
+  top species  (7 distinct):
+     1245  human
+      625  rat
+       79  mouse
+       25  rat; Sprague–Dawley
+       18  Human
+        4  (empty)
+
+  top criteria  (6 distinct):
+     1861  IC50
+       79  EC20
+       19  p < 0.05
+       18  MEC
+       10  p < 0.01
+       10  (empty)
+
+  dose empty: 293/1997   time empty: 1866/1997
+

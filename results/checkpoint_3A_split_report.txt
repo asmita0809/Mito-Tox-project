@@ -1,0 +1,72 @@
+dataset: 5938 parents, 898 positive, 5040 negative, prevalence 15.12%
+
+==============================================================================
+1. GROUPING OPTIONS (evidence for the choice)
+==============================================================================
+murcko     groups  3177   largest  1167   singletons  2762   median size 1.0
+           acyclic compounds given singleton groups: 1458 (24.6%), prevalence 3.1%
+           largest ring scaffold: 'c1ccccc1' with 1167 compounds
+           that single group is 19.7% of the whole dataset
+butina     groups  4961   largest    25   singletons  4424   median size 1.0
+           Butina distance cutoff 0.30 (Tanimoto similarity 0.70)
+
+==============================================================================
+2. SPLIT CONSTRUCTION
+==============================================================================
+Grouping key      : Taylor-Butina cluster of Morgan fingerprints
+Outer split       : StratifiedGroupKFold(n_splits=5, shuffle=True,
+                    random_state=42); fold 0 is the FROZEN TEST SET.
+Inner split       : StratifiedGroupKFold(n_splits=5, shuffle=True,
+                    random_state=42) on the development set, used for all
+                    hyperparameter search, model selection and threshold
+                    selection. There is no separate fixed validation set:
+                    the 5 CV folds serve that role and give a fold-to-fold
+                    spread for uncertainty.
+Stratified        : YES - StratifiedGroupKFold balances the class ratio
+                    across folds while keeping every group intact.
+
+  subset               n      pos      neg  prevalence   groups
+  --------------------------------------------------------------
+  development       4733      720     4013      15.21%     3969
+  TEST (frozen)     1205      178     1027      14.77%      992
+
+  development-set cross-validation folds (indices are within development):
+  fold             n_val      pos      neg  prevalence   groups
+  --------------------------------------------------------------
+  fold 0             934      134      800      14.35%      791
+  fold 1             982      166      816      16.90%      797
+  fold 2             913      150      763      16.43%      786
+  fold 3             933      130      803      13.93%      793
+  fold 4             971      140      831      14.42%      802
+  train per fold    3786
+
+==============================================================================
+3. LEAKAGE CHECKS
+==============================================================================
+parent_inchikey shared between development and TEST : 0
+scaffold groups shared between development and TEST : 0
+parent SMILES shared between development and TEST   : 0
+max scaffold-group overlap across the 5 CV folds    : 0
+every compound assigned exactly once                : YES
+
+ALL LEAKAGE CHECKS PASS: YES
+
+==============================================================================
+4. ANALOGUE-LEAKAGE AUDIT (structure only - no labels used)
+==============================================================================
+Nearest-neighbour Tanimoto of each TEST compound to the development set:
+  n=1205  mean 0.518  median 0.533  min 0.178  max 0.952
+   NN similarity >= 0.40 :   943 (78.3%)
+   NN similarity >= 0.50 :   725 (60.2%)
+   NN similarity >= 0.60 :   388 (32.2%)
+   NN similarity >= 0.70 :    56 (4.6%)
+   NN similarity >= 0.80 :    18 (1.5%)
+   NN similarity >= 0.90 :     5 (0.4%)
+   NN similarity >= 0.99 :     0 (0.0%)
+
+Murcko-scaffold overlap under this split (diagnostic, expected non-zero when
+grouping is Butina - 'all mono-aromatics' is not a meaningful analogue class):
+  scaffolds in development 2572, in test 779, shared 174
+  acyclic compounds: development 1149, test 309
+
+written: data/processed/splits.csv  (cv_fold = -1 for test rows)

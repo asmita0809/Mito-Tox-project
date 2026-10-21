@@ -1,0 +1,14 @@
+name,smiles
+BHT (E321),CC(C)(C)c1cc(C)cc(C(C)(C)C)c1O
+TBHQ (E319),CC(C)(C)c1cc(O)ccc1O
+Propyl gallate (E310),CCCOC(=O)c1cc(O)c(O)c(O)c1
+Dodecyl gallate (E312),CCCCCCCCCCCCOC(=O)c1cc(O)c(O)c(O)c1
+Aspartame (E951),COC(=O)C(Cc1ccccc1)NC(=O)C(N)CC(=O)O
+Sodium benzoate (E211),O=C([O-])c1ccccc1.[Na+]
+Potassium sorbate (E202),CC=CC=CC(=O)[O-].[K+]
+Citric acid (E330),OC(=O)CC(O)(CC(=O)O)C(=O)O
+Sucrose,OCC1OC(OC2(CO)OC(CO)C(O)C2O)C(O)C(O)C1O
+Tartrazine (E102),CC1=NN(c2ccc(S(=O)(=O)O)cc2)C(=O)C1N=Nc1ccc(S(=O)(=O)O)cc1
+Curcumin (E100),COc1cc(C=CC(=O)CC(=O)C=Cc2ccc(O)c(OC)c2)ccc1O
+Silicon dioxide (E551),O=[Si]=O
+2;4-Dinitrophenol (reference uncoupler),Oc1ccc([N+](=O)[O-])cc1[N+](=O)[O-]

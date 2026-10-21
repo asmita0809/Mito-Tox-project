@@ -1,0 +1,105 @@
+input : tox21_mmp_training.csv
+rows  : 5938   positives 898   negatives 5040   prevalence 15.12%
+
+==============================================================================
+1. SETTINGS (all from src/mitotox/config.py)
+==============================================================================
+RDKit version            : 2026.03.5
+Morgan radius            : 2   (ECFP4-equivalent)
+Morgan bits              : 2048
+Morgan binary            : True
+Morgan includeChirality  : True
+MACCS bits               : 167
+random seed              : 42
+alerts used as features  : False
+
+Descriptors (exactly the six in the brief):
+  MolWt                Average molecular weight (Da)
+  MolLogP              Wildman-Crippen octanol/water partition coefficient (logP)
+  TPSA                 Topological polar surface area (A^2), Ertl method
+  NumHDonors           Lipinski hydrogen-bond donor count
+  NumHAcceptors        Lipinski hydrogen-bond acceptor count
+  NumRotatableBonds    Number of rotatable bonds (RDKit strict definition)
+
+==============================================================================
+2. FEATURE GENERATION
+==============================================================================
+molecules built from parent_smiles : 5938 / 5938  (failures 0)
+fingerprint failures               : 0
+rows with any missing descriptor   : 0
+
+MISSING-VALUE POLICY: none applied. No imputation, no dropping. If a
+descriptor were missing it would be written as an empty cell and dealt
+with explicitly at model time. With 0 missing rows there is nothing to do.
+
+==============================================================================
+3. FINGERPRINT STATISTICS
+==============================================================================
+
+Morgan  shape (5938, 2048)  dtype uint8
+  bits set per molecule : mean 29.1  median 25  min 3  max 146
+  overall bit density   : 1.420%
+  all-zero columns      : 0 / 2048
+  all-one columns       : 0
+  columns set in <5 molecules  : 6
+  columns set in >=1% of set   : 565
+  molecules with zero bits set : 0
+
+MACCS  shape (5938, 167)  dtype uint8
+  bits set per molecule : mean 31.8  median 29  min 2  max 90
+  overall bit density   : 19.057%
+  all-zero columns      : 11 / 167
+  all-one columns       : 0
+  columns set in <5 molecules  : 2
+  columns set in >=1% of set   : 143
+  molecules with zero bits set : 0
+
+==============================================================================
+4. DESCRIPTOR STATISTICS
+==============================================================================
+                          n    mean      sd    min  median      max  mean_pos  mean_neg   diff
+  MolWt              5938.0  263.12  161.12  27.03  224.18  1701.21    328.32    251.51  76.81
+  MolLogP            5938.0    2.22    2.24 -17.41    2.19    22.61      3.77      1.94   1.83
+  TPSA               5938.0   59.60   58.80   0.00   46.53   777.98     60.37     59.46   0.91
+  NumHDonors         5938.0    1.33    1.96   0.00    1.00    25.00      1.37      1.32   0.05
+  NumHAcceptors      5938.0    3.38    3.10   0.00    3.00    46.00      3.58      3.34   0.24
+  NumRotatableBonds  5938.0    4.22    4.46   0.00    3.00    47.00      3.97      4.26  -0.29
+
+  'mean_pos' / 'mean_neg' are descriptive only. No split exists yet, so
+  these are computed on the whole labelled set and must NOT be used to
+  choose features or thresholds.
+
+==============================================================================
+5. STRUCTURAL ALERTS - POST-HOC INTERPRETATION, NOT FEATURES
+==============================================================================
+alert                matches  active   inact        OR    Fisher p
+----------------------------------------------------------------------
+salicylanilide            10       9       1     51.01    3.46e-07
+nitrophenol               26      22       4     31.62    5.83e-15
+anthraquinone             31      26       5     30.03    2.71e-17
+hindered_phenol           30      24       6     23.04    3.73e-15
+halogenated_phenol        88      60      28     12.82    1.14e-29
+aromatic_azo              20      10      10      5.66    2.59e-04
+nitroaromatic            221      91     130      4.26    9.68e-22
+dithiocarbamate           10       3       7      2.41    1.83e-01
+para_quinone               8       2       6      1.87    3.47e-01
+michael_acceptor         481      73     408      1.00    9.47e-01
+epoxide                   60       3      57      0.29    2.78e-02
+biguanide                  5       0       5      0.00    1.00e+00
+ortho_quinone              0       0       0       nan    1.00e+00
+
+CAVEAT: enrichment is computed on the full labelled set because no
+train/test split exists yet. These numbers are descriptive. Because the
+alerts are never model features, this is not leakage - but the figures
+must be recomputed on the TRAINING SPLIT ONLY for the final report.
+
+==============================================================================
+6. FILES WRITTEN
+==============================================================================
+  data/processed/features_morgan.npz              382117 bytes
+  data/processed/features_maccs.npz               174705 bytes
+  data/processed/features_descriptors.csv         476378 bytes
+  data/processed/structural_alerts.csv            628635 bytes
+  data/processed/feature_metadata.json              5982 bytes
+  results/tables/descriptor_statistics.csv           445 bytes
+  results/tables/structural_alert_enrichment.csv       2566 bytes

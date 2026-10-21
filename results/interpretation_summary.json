@@ -1,0 +1,70 @@
+{
+  "shap": {
+    "computed_on": "development set only (4733 compounds)",
+    "method": "XGBoost TreeSHAP (pred_contribs)",
+    "bias_term": 0.560486912727356,
+    "direction_method": "Spearman rho between feature value and its own SHAP contribution",
+    "descriptors": [
+      {
+        "rank": 1,
+        "feature": "MolLogP",
+        "kind": "descriptor",
+        "mean_abs_shap": 1.3940750360488892,
+        "value_vs_contribution_spearman": 0.9525959395990585,
+        "direction": "higher value -> higher predicted risk",
+        "n_dev_compounds_with_feature": 4173
+      },
+      {
+        "rank": 2,
+        "feature": "MolWt",
+        "kind": "descriptor",
+        "mean_abs_shap": 0.881590723991394,
+        "value_vs_contribution_spearman": 0.8736314197456562,
+        "direction": "higher value -> higher predicted risk",
+        "n_dev_compounds_with_feature": 4733
+      },
+      {
+        "rank": 5,
+        "feature": "NumHDonors",
+        "kind": "descriptor",
+        "mean_abs_shap": 0.26036277413368225,
+        "value_vs_contribution_spearman": 0.7701239380830052,
+        "direction": "higher value -> higher predicted risk",
+        "n_dev_compounds_with_feature": 2959
+      },
+      {
+        "rank": 6,
+        "feature": "TPSA",
+        "kind": "descriptor",
+        "mean_abs_shap": 0.24713577330112457,
+        "value_vs_contribution_spearman": 0.15410450819403532,
+        "direction": "higher value -> higher predicted risk",
+        "n_dev_compounds_with_feature": 4422
+      },
+      {
+        "rank": 7,
+        "feature": "NumRotatableBonds",
+        "kind": "descriptor",
+        "mean_abs_shap": 0.24502581357955933,
+        "value_vs_contribution_spearman": -0.7787588765564487,
+        "direction": "higher value -> lower predicted risk",
+        "n_dev_compounds_with_feature": 4085
+      },
+      {
+        "rank": 11,
+        "feature": "NumHAcceptors",
+        "kind": "descriptor",
+        "mean_abs_shap": 0.1288606971502304,
+        "value_vs_contribution_spearman": 0.42184993097177464,
+        "direction": "higher value -> higher predicted risk",
+        "n_dev_compounds_with_feature": 4439
+      }
+    ]
+  },
+  "alerts": {
+    "computed_on": "development set only",
+    "n_development": 4733,
+    "n_positive": 720,
+    "n_negative": 4013
+  }
+}

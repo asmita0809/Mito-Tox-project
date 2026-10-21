@@ -1,0 +1,196 @@
+{
+  "generated_utc": "2026-09-01T19:07:50Z",
+  "rdkit_version": "2026.03.5",
+  "numpy_version": "2.2.6",
+  "pandas_version": "2.3.3",
+  "input_file": "tox21_mmp_training.csv",
+  "n_compounds": 5938,
+  "n_positive": 898,
+  "n_negative": 5040,
+  "structure_column": "parent_smiles",
+  "identifier_column": "parent_inchikey",
+  "blocks": {
+    "morgan": {
+      "file": "features_morgan.npz",
+      "shape": [
+        5938,
+        2048
+      ],
+      "dtype": "uint8",
+      "radius": 2,
+      "n_bits": 2048,
+      "binary": true,
+      "include_chirality": true,
+      "generator": "rdFingerprintGenerator.GetMorganGenerator"
+    },
+    "maccs": {
+      "file": "features_maccs.npz",
+      "shape": [
+        5938,
+        167
+      ],
+      "dtype": "uint8",
+      "n_bits": 167,
+      "generator": "rdkit.Chem.MACCSkeys.GenMACCSKeys",
+      "note": "bit 0 is unused by RDKit and is always 0"
+    },
+    "descriptors": {
+      "file": "features_descriptors.csv",
+      "columns": [
+        {
+          "name": "MolWt",
+          "definition": "Average molecular weight (Da)"
+        },
+        {
+          "name": "MolLogP",
+          "definition": "Wildman-Crippen octanol/water partition coefficient (logP)"
+        },
+        {
+          "name": "TPSA",
+          "definition": "Topological polar surface area (A^2), Ertl method"
+        },
+        {
+          "name": "NumHDonors",
+          "definition": "Lipinski hydrogen-bond donor count"
+        },
+        {
+          "name": "NumHAcceptors",
+          "definition": "Lipinski hydrogen-bond acceptor count"
+        },
+        {
+          "name": "NumRotatableBonds",
+          "definition": "Number of rotatable bonds (RDKit strict definition)"
+        }
+      ],
+      "n_missing_rows": 0,
+      "missing_value_policy": "none applied; no imputation"
+    }
+  },
+  "structural_alerts": {
+    "file": "structural_alerts.csv",
+    "used_as_model_features": false,
+    "n_alerts": 13,
+    "definitions": [
+      {
+        "key": "nitroaromatic",
+        "name": "Aromatic nitro group",
+        "smarts": [
+          "[$([NX3](=O)=O),$([NX3+](=O)[O-])][c]"
+        ],
+        "require": "any",
+        "rationale": "Redox cycling and, on an acidic ring, protonophoric uncoupling."
+      },
+      {
+        "key": "nitrophenol",
+        "name": "Nitrophenol (phenol + aromatic nitro)",
+        "smarts": [
+          "[OX2H1][c]",
+          "[$([NX3](=O)=O),$([NX3+](=O)[O-])][c]"
+        ],
+        "require": "all",
+        "rationale": "Classic protonophoric uncoupler pharmacophore: an acidic, lipophilic, delocalised anion that shuttles protons across the inner membrane (the DNP archetype)."
+      },
+      {
+        "key": "halogenated_phenol",
+        "name": "Halogenated phenol",
+        "smarts": [
+          "[OX2H1][c]",
+          "[F,Cl,Br,I][c]"
+        ],
+        "require": "all",
+        "rationale": "Halogens lower phenol pKa and raise logP - the two properties that make a weak acid an effective uncoupler."
+      },
+      {
+        "key": "salicylanilide",
+        "name": "Salicylanilide",
+        "smarts": [
+          "[OX2H1]c1ccccc1C(=O)[NX3][c]"
+        ],
+        "require": "any",
+        "rationale": "Salicylanilide uncouplers (niclosamide class)."
+      },
+      {
+        "key": "para_quinone",
+        "name": "para-Quinone",
+        "smarts": [
+          "O=C1C=CC(=O)C=C1"
+        ],
+        "require": "any",
+        "rationale": "Redox cycling with the respiratory chain; superoxide generation."
+      },
+      {
+        "key": "ortho_quinone",
+        "name": "ortho-Quinone",
+        "smarts": [
+          "O=C1C(=O)C=CC=C1"
+        ],
+        "require": "any",
+        "rationale": "Redox cycling; also a strong electrophile."
+      },
+      {
+        "key": "anthraquinone",
+        "name": "Anthraquinone",
+        "smarts": [
+          "O=C1c2ccccc2C(=O)c2ccccc21"
+        ],
+        "require": "any",
+        "rationale": "Fused-ring quinone; electron-transport interference."
+      },
+      {
+        "key": "hindered_phenol",
+        "name": "Sterically hindered phenol (BHT-like)",
+        "smarts": [
+          "[OX2H1]c1c(C(C)(C)C)cccc1"
+        ],
+        "require": "any",
+        "rationale": "Lipophilic antioxidant phenols reported to perturb respiration; the BHT/BHA structural family, directly relevant to food additives."
+      },
+      {
+        "key": "michael_acceptor",
+        "name": "Michael acceptor (enone)",
+        "smarts": [
+          "[CX3]=[CX3][CX3]=[OX1]"
+        ],
+        "require": "any",
+        "rationale": "Thiol-reactive electrophile; glutathione depletion."
+      },
+      {
+        "key": "epoxide",
+        "name": "Epoxide",
+        "smarts": [
+          "C1OC1"
+        ],
+        "require": "any",
+        "rationale": "Strained electrophile; protein and DNA alkylation."
+      },
+      {
+        "key": "aromatic_azo",
+        "name": "Aromatic azo",
+        "smarts": [
+          "[c][NX2]=[NX2][c]"
+        ],
+        "require": "any",
+        "rationale": "Azo dyes; reductive cleavage yields aromatic amines. Common among colour additives."
+      },
+      {
+        "key": "biguanide",
+        "name": "Biguanide",
+        "smarts": [
+          "[#7;!R]~[#6;!R](~[#7])~[#7;!R]~[#6;!R](~[#7])~[#7;!R]"
+        ],
+        "require": "any",
+        "rationale": "Complex I inhibition (metformin/phenformin class). Bond orders are\n          left unspecified because the biguanide tautomer drawn varies between\n          depositors; ring atoms are excluded so triazines such as melamine do\n          not match."
+      },
+      {
+        "key": "dithiocarbamate",
+        "name": "Dithiocarbamate",
+        "smarts": [
+          "[NX3][CX3](=[SX1])[SX2,SX1-]"
+        ],
+        "require": "any",
+        "rationale": "Metal chelation and thiol reactivity. Flagged specifically because salt stripping merges the metal complexes with their alkali salts in this dataset (see flag_metal_removed)."
+      }
+    ]
+  },
+  "random_seed": 42
+}

@@ -1,0 +1,194 @@
+
+==============================================================================
+1. SID / CID RELATIONSHIP
+==============================================================================
+SID rows (samples)      : 10486
+unique SID              : 10486
+unique CID (non-blank)  : 8099
+rows with no CID        : 149
+rows with no SMILES     : 149
+rows with no CID AND no SMILES : 149
+rows with no CID but WITH SMILES: 0
+
+SIDs per CID distribution:
+    1 SID(s):   6228 CIDs   (  6228 rows)
+    2 SID(s):   1535 CIDs   (  3070 rows)
+    3 SID(s):    312 CIDs   (   936 rows)
+    4 SID(s):     21 CIDs   (    84 rows)
+    5 SID(s):      1 CIDs   (     5 rows)
+    6 SID(s):      1 CIDs   (     6 rows)
+    8 SID(s):      1 CIDs   (     8 rows)
+   CIDs with >1 SID : 1871  covering 4109 rows
+
+WHY do several SIDs share a CID? Evidence:
+  CIDs where all SIDs share ONE Sample Source : 315 / 1871
+  CIDs where all SIDs share ONE depositor SMILES string: 1871 / 1871
+
+  distinct Sample Sources per multi-SID CID:
+      1 source(s):   315 CIDs
+      2 source(s):  1371 CIDs
+      3 source(s):   174 CIDs
+      4 source(s):    11 CIDs
+
+  Example multi-SID CIDs (first 5, showing every SID):
+   CID 10005  (2 SIDs)
+      SID 144208711    Inconclusive   src=SigmaAldrich           smiles=C(#N)N=C(N)N
+      SID 144213047    Inactive       src=SIGMA                  smiles=C(#N)N=C(N)N
+   CID 10009  (2 SIDs)
+      SID 144208848    Inactive       src=SigmaAldrich           smiles=C1=CC(=CN=C1)N
+      SID 144213761    Inactive       src=LightBiologicals       smiles=C1=CC(=CN=C1)N
+   CID 1004  (3 SIDs)
+      SID 144204604    Inactive       src=NIEHS                  smiles=OP(=O)(O)O
+      SID 144209483    Inconclusive   src=SIGMA                  smiles=OP(=O)(O)O
+      SID 144213563    Inactive       src=LightBiologicals       smiles=OP(=O)(O)O
+   CID 10114  (3 SIDs)
+      SID 144204355    Inconclusive   src=Timtec                 smiles=C[C@]12CC[C@](C[C@H]1C3=CC(=O)[C@@H]4[C@...
+      SID 144206279    Inconclusive   src=NCI                    smiles=C[C@]12CC[C@](C[C@H]1C3=CC(=O)[C@@H]4[C@...
+      SID 144207997    Inconclusive   src=SigmaAldrich           smiles=C[C@]12CC[C@](C[C@H]1C3=CC(=O)[C@@H]4[C@...
+   CID 10129  (2 SIDs)
+      SID 144209237    Inactive       src=SIGMA                  smiles=CC1CCC2CC1C2(C)C
+      SID 144213597    Inactive       src=Alfa Aesar             smiles=CC1CCC2CC1C2(C)C
+
+Rows with NO CID - what are they? Sample Source and SMILES presence:
+  n = 149 ; with SMILES = 0
+  outcome breakdown : {'Inconclusive': 37, 'Inactive': 81, 'Active': 31}
+  top sample sources: {'NTP-MRI Repository': 118, 'SIGMA': 16, 'ACC': 4, 'SigmaAldrich': 3, 'BIOMOL': 1, 'Labotest': 1, 'Tocris': 1, 'FLUKA': 1}
+  contains '.' (multi-component) in SMILES: 0 of 0 with SMILES
+
+==============================================================================
+2. OUTCOME COMBINATIONS PER UNIQUE CID
+==============================================================================
+combination                                CIDs     SIDs
+----------------------------------------------------------
+Active                                      830     1030
+Inactive                                   5080     6288
+Inconclusive                               1688     1875
+Active + Inactive                            33       77
+Active + Inconclusive                       132      291
+Inactive + Inconclusive                     325      738
+Active + Inactive + Inconclusive             11       38
+----------------------------------------------------------
+TOTAL (CIDs with a CID)                    8099    10337
+
+single-SID CIDs   : 6228
+multi-SID CIDs    : 1871
+  of which fully concordant (one outcome value): 1370
+
+==============================================================================
+3. CONFLICTING COMPOUNDS (Active AND Inactive on the same CID)
+==============================================================================
+CIDs with at least one Active and one Inactive SID : 44
+  of these, also carrying Inconclusive SIDs        : 11
+  SIDs involved                                     : 115
+
+Active:Inactive SID split among conflicted CIDs:
+   1A : 1I   -> 34 CIDs
+   1A : 2I   -> 3 CIDs
+   1A : 3I   -> 1 CIDs
+   2A : 1I   -> 5 CIDs
+   3A : 1I   -> 1 CIDs
+
+Full per-SID detail written to results/checkpoint_1C_conflicting_compounds.csv
+
+First 12 conflicted CIDs, every SID:
+  CID 10316
+     SID 144208365    Active        active antagonist    pot=68.5896   eff=-44.5342  via=inactive               src=SIGMA
+     SID 144204659    Inactive      inactive             pot=nan       eff=0         via=inactive               src=NIEHS
+  CID 1057
+     SID 144209571    Active        active antagonist    pot=12.0856   eff=-36.2236  via=inactive               src=Battelle Memorial
+     SID 144204694    Inactive      inactive             pot=nan       eff=0         via=inactive               src=NIEHS
+  CID 1123
+     SID 144209718    Active        active antagonist    pot=10.8697   eff=-96.3168  via=inactive               src=SIGMA
+     SID 144203828    Inactive      inactive             pot=nan       eff=0         via=inactive               src=BIOMOL
+  CID 11289
+     SID 144209559    Active        active antagonist    pot=26.1444   eff=-58.4975  via=inactive               src=SIGMA
+     SID 144213214    Active        active antagonist    pot=24.3365   eff=-59.6758  via=inactive               src=SIGMA
+     SID 144204017    Inactive      inactive             pot=nan       eff=0         via=inactive               src=NIEHS
+  CID 11443
+     SID 144207342    Active        active antagonist    pot=26.9475   eff=-61.412   via=inactive               src=Sensient
+     SID 144210480    Inactive      inactive             pot=nan       eff=0         via=inactive               src=LightBiologicals
+     SID 144209256    Inconclusive  inconclusive         pot=54.3165   eff=-54.0852  via=inactive               src=SIGMA
+  CID 12305761
+     SID 144206767    Active        active antagonist    pot=33.4915   eff=-76.2761  via=inactive               src=NCI
+     SID 144205048    Inactive      inactive             pot=nan       eff=0         via=inactive               src=Microsource
+  CID 14709
+     SID 144208161    Active        active antagonist    pot=61.1306   eff=-67.2435  via=inactive               src=SigmaAldrich
+     SID 144204036    Inactive      inactive             pot=nan       eff=0         via=inactive               src=Prestwick Chemical
+  CID 16043
+     SID 144203558    Active        active antagonist    pot=24.0651   eff=-91.976   via=inactive               src=SigmaAldrich
+     SID 144203557    Inactive      inactive             pot=nan       eff=0         via=inactive               src=NCI
+     SID 144209507    Inactive      inactive             pot=nan       eff=0         via=inactive               src=SigmaAldrich
+     SID 144210401    Inactive      inactive             pot=nan       eff=0         via=inactive               src=SIGMA
+  CID 162461
+     SID 144213810    Active        active antagonist    pot=52.4314   eff=-89.759   via=inactive               src=Sigma DiscoveryCPR
+     SID 144209038    Inactive      inactive             pot=nan       eff=0         via=inactive               src=Sensient
+  CID 20250
+     SID 144207869    Active        active antagonist    pot=43.0572   eff=-93.322   via=inactive               src=SIGMA
+     SID 144206797    Inactive      inactive             pot=nan       eff=0         via=inactive               src=NIEHS
+     SID 144207010    Inactive      inactive             pot=nan       eff=0         via=inactive               src=SigmaAldrich
+  CID 2328
+     SID 144211059    Active        active antagonist    pot=51.435    eff=-56.2406  via=inactive               src=SIGMA
+     SID 144209149    Inactive      inactive             pot=nan       eff=0         via=inactive               src=SigmaAldrich
+  CID 23716429
+     SID 144206201    Active        active antagonist    pot=23.7101   eff=-64.611   via=inconclusive antagonis src=NCI
+     SID 144205543    Inactive      inactive             pot=nan       eff=0         via=inactive               src=NCI
+
+EVIDENCE for a tie-break rule - the Active SIDs of conflicted compounds:
+                                           n        min     median        max
+  efficacy, Active SIDs in conflicts      51    -135.66     -69.35     -36.22
+  efficacy, ALL Active SIDs             1229    -158.85     -92.39     -28.24
+  potency uM, Active SIDs in conflicts      51      0.229     40.080     72.144
+  potency uM, ALL Active SIDs           1229      0.010     14.351     72.144
+
+==============================================================================
+4. STRUCTURE AVAILABILITY
+==============================================================================
+unique CIDs                          : 8099
+CIDs with at least one SMILES        : 8099
+CIDs with NO SMILES on any SID       : 0
+CIDs whose SIDs give >1 distinct SMILES string: 0
+
+distinct-SMILES-per-CID distribution: {1: 8099}
+
+Standardization indicators, one SMILES per CID (n=8099):
+  contains '.' (salt / mixture / multi-component) : 1759
+  contains a charge token ([+ or -])              : 1256
+  contains '@' (stereocentre)                     : 1423
+  contains a metal-ish bracket token (Na/K/Ca/Fe/Zn/Cl-) : 710
+
+==============================================================================
+5. VIABILITY INFORMATION: 720637 in-row columns vs AID 720634
+==============================================================================
+720634 rows: 10486 ; unique SID: 10486
+720637 SIDs matched into 720634: 10486 / 10486 (unmatched 0)
+
+720637 'Viability Activity'  x  720634 PUBCHEM_ACTIVITY_OUTCOME:
+  via634_outcome           Active  Inactive  Inconclusive
+  Viability Activity                                     
+  active agonist                0        48             0
+  active antagonist           248         0           225
+  inactive                      4      9114           343
+  inconclusive                  1        10             1
+  inconclusive agonist          0       125             0
+  inconclusive antagonist     121         1           245
+
+Coverage of the viability fields inside AID 720637 itself:
+  Viability Activity         non-empty in 10486 / 10486 rows
+  Viability Potency (uM)     non-empty in 791 / 10486 rows
+  Viability Efficacy (%)     non-empty in 10344 / 10486 rows
+
+MMP outcome x 720637 Viability Activity (annotation value, NOT a label change):
+  Viability Activity        active agonist  active antagonist  inactive  inconclusive  inconclusive agonist  inconclusive antagonist
+  PUBCHEM_ACTIVITY_OUTCOME                                                                                                          
+  Active                                21                162       858             6                    33                      180
+  Inactive                               8                  9      6723             0                    57                       13
+  Inconclusive                          19                302      1880             6                    35                      174
+
+==============================================================================
+6. COMPOUND-LEVEL SUMMARY TABLE (counts only - NO label column)
+==============================================================================
+Written: results/checkpoint_1C_compound_summary.csv
+rows: 8099   columns: ['PUBCHEM_CID', 'n_sid', 'n_active', 'n_inactive', 'n_inconclusive', 'combination', 'n_distinct_smiles', 'n_sample_sources', 'viability_activity_values', 'example_smiles']
+
+NOTE: this table contains COUNTS ONLY. No label has been assigned and no
+      training dataset has been created.

@@ -1,0 +1,24 @@
+# Raw API downloads: regenerable by scripts/download_*.py, and one file is 26 MB.
+# data/README.md records the exact sources, dates and checksums.
+data/external/
+
+# Working copies and scratch
+old_files_dont_touch/
+*.docx
+*.pptx
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.vscode/
+.DS_Store

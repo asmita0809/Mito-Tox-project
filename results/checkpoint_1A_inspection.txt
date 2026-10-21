@@ -1,0 +1,728 @@
+
+==============================================================================
+0. DOWNLOAD INTEGRITY (from download_manifest.json)
+==============================================================================
+manifest status : ok
+base URL        : https://www.mitotox.org/api
+retrieved       : 2026-09-01T12:33:34.859140+00:00 -> 2026-09-01T12:35:18.080713+00:00
+python          : ?
+failures        : none
+verify problems : none
+
+  endpoint      pages   declared   downloaded   match  sha256[:12]
+  --------------------------------------------------------------------------
+  compounds        15       1453         1453     yes  a54079d694ef
+  records          47       4617         4617     yes  2da750037086
+  functions         3        249          249     yes  96782dd4acb0
+  targets           9        876          876     yes  828f6ad84498
+  papers            4        334          334     yes  c8ff75c00f42
+
+All five files re-read successfully from disk.
+
+==============================================================================
+1-2. RECORD COUNTS
+==============================================================================
+  compounds      1453
+  records        4617
+  functions       249
+  targets         876
+  papers          334
+
+==============================================================================
+3. FIELD NAMES PER ENDPOINT
+==============================================================================
+
+compounds: 1453 records, 25 distinct fields
+
+  field                     non-empty        pct  example value
+  --------------------------------------------------------------------------
+  compound_ID                    1453     100.0%  'D0001'
+  name                           1453     100.0%  'Fluorouracil'
+  synonyms                       1308      90.0%  '5-Fluorouracil; fluorouracil; ...
+  trade_name                      151      10.4%  'Adrucil, Carac, Efudex, Efudix'
+  abbrev_name                     124       8.5%  '5-FU'
+  description                     436      30.0%  'Anti-cancer; an antineoplastic...
+  molecular_formula              1411      97.1%  'C4H3FN2O2'
+  molecular_weight               1410      97.0%  '130.08'
+  state                           461      31.7%  'solid'
+  clearance                       167      11.5%  '* 0.80 ± 0.24 L/hr/kg [asympto...
+  volume_of_distribution          178      12.3%  '* 0.86 ± 0.15 L/kg [IV adminis...
+  route_of_elimination            258      17.8%  'Seven percent to 20% of the pa...
+  protein_binding                 278      19.1%  '8-12%'
+  half_life                       304      20.9%  '10-20 minutes'
+  absorption                      310      21.3%  '28-100%'
+  cid                            1446      99.5%  '3385'
+  classification                 1453     100.0%  'L'
+  indications                     127       8.7%  "Actinic keratosis; Bowen's dis...
+  side_effects                     86       5.9%  'Application site reaction (0.9...
+  atc_codes                       381      26.2%  'L01BC02; L01BC52'
+  group                          1453     100.0%  'Drug'
+  drug_type                         0       0.0%  
+  target                          447      30.8%  ['T234']
+  function                       1211      83.3%  ['F0701']
+  references                     1235      85.0%  ['RC03433']
+
+records: 4617 records, 14 distinct fields
+
+  field                     non-empty        pct  example value
+  --------------------------------------------------------------------------
+  rec_id                         4617     100.0%  'RC00001'
+  func                           4413      95.6%  'F0502'
+  targ                           1166      25.3%  'T387'
+  compound                       4617     100.0%  'D0003: Acetaminophen'
+  paper                          4617     100.0%  '1'
+  func_act                       4101      88.8%  'increase'
+  targ_act                       1094      23.7%  'increase'
+  dose                           3664      79.4%  '300 mg/kg'
+  time                           1052      22.8%  '1 hour'
+  method                         3898      84.4%  'ALT activity measurement'
+  species                        3816      82.7%  'mice; C57Bl/6'
+  animal_model                   3954      85.6%  'in vivo'
+  criteria                       3473      75.2%  'p < 0.05'
+  result                         4617     100.0%  False
+
+functions: 249 records, 9 distinct fields
+
+  field                     non-empty        pct  example value
+  --------------------------------------------------------------------------
+  func_id                         249     100.0%  'F01'
+  parent_func_id                  249     100.0%  'F'
+  category                        249     100.0%  'Transmembrane potential'
+  name                            249     100.0%  'Transmembrane potential'
+  related_go_id                   154      61.8%  'GO:0051881'
+  related_kegg_id                  72      28.9%  'map00190'
+  related_reactome_id              66      26.5%  'R-HSA-611105'
+  synonyms                          0       0.0%  
+  references                      122      49.0%  ['RC03864', 'RC03865', 'RC03870...
+
+targets: 876 records, 24 distinct fields
+
+  field                     non-empty        pct  example value
+  --------------------------------------------------------------------------
+  targ_id                         876     100.0%  'T001'
+  parent_targ_id                  876     100.0%  'T'
+  full_name                       876     100.0%  'NADH:ubiquinone reductase'
+  abbrev                          798      91.1%  'Complex I'
+  protein_names                   592      67.6%  'NADH-ubiquinone oxidoreductase...
+  related_func_ids                657      75.0%  'F020103'
+  category                        876     100.0%  'enzyme'
+  subcategories                   668      76.3%  'Translocase'
+  Uniport_ID                      592      67.6%  'P03886'
+  Uniprot_name                    593      67.7%  'NU1M_HUMAN'
+  EC_numbers                      351      40.1%  '7.1.1.2'
+  gene_symbol                     820      93.6%  'MT-ND1'
+  gene_synonyms                   669      76.4%  'MTND1, NAD1, ND1'
+  gene_synonyms_links             228      26.0%  'https://www.genenames.org/data...
+  gene_name                       506      57.8%  'Mitochondrially encoded NADH:u...
+  hgnc_id                         223      25.5%  '7489.0'
+  entrez_id                       228      26.0%  '4566.0'
+  ensembl_id                      730      83.3%  'ENSG00000198888'
+  omim_id                         143      16.3%  '590060.0'
+  genecard_link                   228      26.0%  'https://www.genecards.org/cgi-...
+  locs                            578      66.0%  'Mitochondrion inner membrane; ...
+  reaction                        327      37.3%  'a ubiquinone + 5 H(+)(in) + NA...
+  targ_desciption                 549      62.7%  'Core subunit of the mitochondr...
+  references                      109      12.4%  ['RC00112', 'RC00117', 'RC00122...
+
+papers: 334 records, 18 distinct fields
+
+  field                     non-empty        pct  example value
+  --------------------------------------------------------------------------
+  pap_id                          334     100.0%  '1'
+  title                           331      99.1%  'Acetaminophen-induced liver in...
+  authors                         330      98.8%  'McGill, Mitchell R; Williams, ...
+  chapter                           2       0.6%  'Structure-Activity Modeling of...
+  pages                           318      95.2%  '387-394'
+  journal                         326      97.6%  'Toxicology and Applied Pharmac...
+  pub_date                        331      99.1%  '2012-11-01'
+  pub_year                        334     100.0%  2012
+  volume                          321      96.1%  '264'
+  issue                           275      82.3%  '3'
+  Issn                             41      12.3%  '1348-589X'
+  Isbn                              3       0.9%  '9.78E+12'
+  url                             331      99.1%  'http://dx.doi.org/10.1016/j.ta...
+  doi                             300      89.8%  '10.1016/j.taap.2012.08.015'
+  pmid                            295      88.3%  '22980195.0'
+  pmcid                            95      28.4%  'PMC3478469'
+  abstract                        296      88.6%  'Acetaminophen (APAP) overdose ...
+  references                      295      88.3%  ['RC00001', 'RC00002', 'RC00003...
+
+==============================================================================
+4. MITOCHONDRIAL FUNCTION / ENDPOINT ONTOLOGY
+==============================================================================
+249 function nodes; 8 top-level (parent not itself a node)
+
+Top-level nodes and their parent field:
+  F01        parent='F'    Transmembrane potential
+  F02        parent='F'    Function of mitochondria
+  F03        parent='F'    Organization of mitochondria
+  F04        parent='F'    Movement of mitochondria
+  F05        parent='F'    Oxidative stress
+  F06        parent='F'    Mitochondrial DNA
+  F07        parent='F'    Cell death
+  F08        parent='F'    Signaling
+
+Records reference 122 distinct func ids; 204 records have empty/None func
+func ids used by records but absent from the functions table: none
+
+Direct record counts per function node, whole tree, depth-first.
+'direct' = records whose func field is exactly that node.
+'subtree' = direct + all descendants.
+
+  subtree direct  node
+  --------------------------------------------------------------------------
+    2258     41  F01        Transmembrane potential
+       6      5    F0101      depolarization
+       1      1      F010101    calcium-dependent
+       .      0    F0102      delay in initiation of deloparization
+       .      0    F0103      hyperpolarization
+      42      5    F0104      permeabilization
+      37     37      F010401    Opening of permeability transition pore (PTP)
+     135    106    F0105      uncoupling
+       4      4      F010501    Nonprotonophoric Uncouplers 
+       9      9      F010502    protonophoric uncoupling
+      16     16      F010503    electrophoretic uncoupling
+      11      0    F0106      Ionophore
+       .      0      F010601    transport of protons and charge (proton ionophore)
+       2      2      F010602    transport of charge but not protons
+       2      2      F010603    transport of protons but not charge (K+)
+       2      2      F010604    transport of protons but not charge (Na+)
+       4      4      F010605    transport of protons but not charge (Ca2+ or Mg2+)
+       1      1      F010606    transport of protons but not charge (Cations)
+      15      5    F0107      protonophore
+      10     10      F010701    associate with uncoupling
+    1997   1997    F0108      membrane potential
+      10     10    F0109      redox cycling
+       1      1    F0110      proton conductivity
+       .      0      F011001     proton conductivity by F0
+    1600      0  F02        Function of mitochondria
+    1031    174    F0201      respiration
+     143      2      F020101    Respiratory states
+       .      0        F02010101  state 1 respiration
+      21     21        F02010102  state 2 respiration
+     103    103        F02010103  state 3 respiration
+      15     15        F02010104  state 4 respiration
+       .      0        F02010105  state 5 respiration
+       2      2        F02010106  state 3u respiration
+     181      2      F020102    mitochondrial parameters
+      45     45        F02010201  respiratory control ratio (RCR)
+      33     33        F02010202  oxygen consumption rate (OCR)
+      51     51        F02010203  basal respiration
+      18     18        F02010204  maximal respiration
+      15     15        F02010205  ATP turnover
+       2      2        F02010206  spare/ respiratory capacity
+      11     11        F02010207  proton leak
+       1      1        F02010208  non-mitochondrial respiration
+       3      3        F02010209  P/O ratio ( ADP/O)
+     500    500      F020103    electron transport chain
+      14     14      F020104    uncoupled respiration
+      19     19      F020105    DNP-uncoupled respiration
+       5      0    F0202      Pyruvate metabolism
+       3      3      F020201    generation of lactate
+       2      2      F020202    lactate to pyruvate ratio
+      23     11    F0203      TCA
+       4      4      F020301    generation of citrate
+       2      2      F020302    generation of isocitrate
+       4      4      F020303    generation of alpha-ketoglutarate
+       2      2      F020304    generation of succinate
+     144      0    F0204      glucose metabolism
+      58     14      F020401    glycolysis
+      28     28        F02040101  ECAR
+       8      8        F02040102  glucose consumption
+       8      8        F02040103  lactate production
+       .      0      F020402    Gluconeogenesis
+      86     86      F020403    glucose galactose IC50  ratio
+       .      0    F0205      Pentose phosphate pathway
+     180     14    F0206      lipid metabolism
+     134      8      F020601    Fatty acid metabolism
+     126    126        F02060101  mitochondrial fatty acid beta oxidation
+       .      0        F02060102  fatty acyl-CoA biosynthesis
+       .      0        F02060103  carnitine shuttle
+       .      0        F02060104  carnitine biosynthesis
+       .      0        F02060105  fatty acid biosynthetic
+       .      0        F02060106  acetyl-CoA biosynthesis
+      19      0      F020602    Ketone body metabolism
+      19     19        F02060201  Synthesis of ketone body
+       .      0        F02060202  Catabolism of ketone body
+      12     12      F020603    lipid peroxidation
+       .      0      F020604    steroid metabolism
+       1      1      F020605    phospholipid metabolism
+       .      0    F0207      metabolism of amino acid
+       .      0      F020701    Alanine metabolism
+       .      0      F020702    Arginine metabolism
+       .      0      F020703    Asparagine metabolism
+       .      0      F020704    Aspartate metabolism
+       .      0      F020705    Cysteine metabolism
+       .      0      F020706    Glutamine metabolism
+       .      0      F020707    Glutamate metabolism
+       .      0      F020708    Glycine metabolism
+       .      0      F020709    Histidine metabolism
+       .      0      F020710    Isoleucine metabolism
+       .      0      F020711    Leucine metabolism
+       .      0      F020712    Lysine metabolism
+       .      0      F020713    Methionine metabolism
+       .      0      F020714    Phenylalanine metabolism
+       .      0      F020715    Proline metabolism
+       .      0      F020716    Serine metabolism
+       .      0      F020717    Threonine metabolism
+       .      0      F020718    Tryptophan metabolism
+       .      0      F020719    Tyrosine metabolism
+       .      0      F020720    Valine metabolism
+       .      0      F020721    selenocysteine metabolism
+       .      0    F0208      glycogen metabolism
+       .      0    F0209      protein scaffolding
+       1      0    F0210      protein quality control
+       1      1      F021001    mitochondrial ubiquitination
+     138      0    F0211      transport
+      95      0      F021101    metabolite transport
+       .      0        F02110102  malate asparatate shuttle
+      89     89        F02110103  s,n-glycerophosphate shuttle
+       .      0        F02110104  transport of glutamate
+       .      0        F02110105  transport of dicarboxylate
+       .      0        F02110106  transport of 2-oxoglutarate
+       .      0        F02110107  carnitine shuttle
+       .      0        F02110108  transport of tricarboxylate
+       .      0        F02110109  transport of ornithine/citrulline
+       .      0        F02110110  transport of deoxynucleotide
+       .      0        F02110111  transport of L-aspartic acid
+       6      6        F02110112  transport of pyruvate
+       .      0        F02110113  transport of monocarboxylate
+       .      0        F02110114  transport of citrate
+       .      0        F02110115  transport of glucose
+       .      0        F02110116  transport of fatty acid
+       .      0      F021102    mitochondrial protein transport
+      43      0      F021103    mitochondrial ion transport
+      19     19        F02110301  transport of calcium
+      10     10        F02110302  accumulation of calcium
+       .      0        F02110303  transport of sodium
+       7      7        F02110304  transport of potassium
+       4      4        F02110305  potassium release
+       1      1        F02110306  accumulation of potassium
+       .      0        F02110307  transport of proton
+       1      1        F02110308  transport of phosphate
+       1      1        F02110309  accumulation of phosphate
+       .      0        F02110310  transport of chlorine
+       .      0        F02110311  transport of anion
+       .      0        F02110312  bicarbonate transport
+      47      0    F0212      metabolism of cofactors and vitamins
+      25     25      F021201    ATP synthesis
+       3      3      F021202    NADPH metabolism
+       5      5      F021203    ATP level
+       8      8      F021204    ATP hydrolysis
+       .      0      F021205    Heme synthesis
+       .      0      F021206    CoA synthesis
+       .      0      F021207    Ubiquinone synthesis
+       .      0      F021208    Cobalamin (Cbl, vitamin B12) metabolism
+       .      0      F021209    folate (vitamin B9) metabolism
+       .      0      F021210    calciferol (Vitamin D) metabolism
+       .      0      F021211    biotin (vitamin B7) metabolism
+       .      0      F021212    Thiamine (vitamin B1) metabolism
+       .      0      F021213    Riboflavin (vitamin B2) metabolism
+       4      4      F021214    NADH level
+       1      1      F021215    energy charge 
+       1      1      F021216    ATP/ADP ratio
+       2      2    F0213      Thiol compounds metabolism
+       2      1    F0214      Iron homeostasis
+       1      1      F021401    ferritin depletion
+       .      0    F0215      Phospholipid metabolism
+       .      0      F021501    Phosphatidylethanolamine biosynthesis
+       .      0    F0216      glyoxylate metabolim
+       .      0    F0218      creatine metabolism
+       .      0    F0219      Lipoic acid metabolism
+       .      0    F0220      nucleotide metabolism
+       .      0      F022001    Pyrimidine nucleotide biosynthesis
+       .      0      F022002    Pyridine nucleotide biosynthesis
+      27     15    F0221      glutathione metabolism
+       2      2      F022101    GSH content
+      10     10      F022102    GSSH/GHS ratio
+       .      0    F0222      sulfur compound metabolism
+       .      0    F0223      Urea cycle
+       .      0    F0224      fructose metabolism
+       .      0      F022401    Fructose biosynthesis
+     189      0  F03        Organization of mitochondria
+       1      1    F0301      mass
+       .      0    F0302      size
+     105    105    F0303      swelling
+       .      0    F0304      localization
+      10      0    F0305      length
+      10     10      F030501    elongation
+      20      4    F0306      shape
+       1      1      F030601    volume
+       1      1      F030602    formation and maintenance of cristae structure
+       6      6      F030603    fragmentation
+       8      8      F030604    megamitochondria
+       4      4    F0307      ultrastructure
+       .      0      F030701    tubulization
+       .      0      F030702    structure integrity
+      45     17    F0308      mitochondrial dynamics
+      13     13      F030801    mitophagy
+       6      6      F030802    biogenesis
+       5      5      F030803    fusion
+       4      4      F030804    fission
+       .      0    F0309      ER-mitochondria tethering
+       4      0    F0310      protein-containing complex assembly
+       4      4      F031001    mitochondrial respiratory chain complex assembly
+       .      0    F0311      cellular component assembly
+       .      0      F031101    iron-sulfur cluster assembly
+      18      0  F04        Movement of mitochondria
+      13     13    F0401      mitochondria transport
+       .      0      F040101    mitochondrial axonal transport
+       .      0        F04010101  anterograde axonal transport of mitochondrion
+       .      0        F04010102  retrograde axonal transport of mitochondrion
+       5      5    F0402      mitochondrial motility
+     148     59  F05        Oxidative stress
+       2      2    F0501      Heart-specific oxidative stress
+      12     12    F0502      Liver-specific oxidative stress
+       .      0    F0503      Neuron-specific oxidative stress
+      70     65    F0504      ROS production
+       5      5      F050401    H2O2 production
+       4      1    F0505      ROS detoxification
+       3      3      F050501    antioxidant production
+       .      0      F050502    scavenger of mitochondrial superoxide
+       1      1    F0506      RSS production
+      49      3  F06        Mitochondrial DNA
+      22      0    F0601      Mitochondrial DNA maintainance
+       .      0      F060101    mitochondrial DNA metabolic process
+      15     15      F060102    mitochondrial DNA metabolic process
+       .      0      F060103    mitochondrial DNA metabolic process
+       5      5      F060104    mitochondrial DNA metabolic process
+       2      2      F060105    mitochondrial DNA metabolic process
+       2      2    F0602      Mitochondrial DNA mutation
+       3      0    F0603      mitochondrial RNA processing
+       3      3      F060301    mitochondrial transcription
+       .      0      F060302    mitochondrial mRNA processing
+       .      0      F060303    mitochondrial tRNA processing
+       .      0      F060304    mitochondrial rRNA processing
+      17     17    F0604      mitochondrial protein translation
+       .      0      F060401    mitochondrial translational elongation
+       2      2    F0605      Mitochondrial DNA damage
+     143      0  F07        Cell death
+     129     69    F0701      Apoptosis
+       6      6      F070101    early apoptosis
+      21     21      F070102    late apoptosis
+       2      2      F070103    p53 pathway
+       2      2      F070104    caspase activity
+      16     16      F070105    cytochrome c release
+      13     13      F070106    ER stress-induced
+       5      5    F0702      Ferroptosis
+       9      9    F0703      Autophagy
+       .      0    F0704      Necroptosis
+       .      0    F0705      Pyroptosis
+       8      8  F08        Signaling
+       .      0    F0801      mTOR signaling pathway
+       .      0    F0802      AMPK signaling pathway
+       .      0    F0803      HIF-1 signaling pathway
+       .      0    F0804      MAPK signaling pathway
+       .      0    F0805      FoxO signaling pathway
+       .      0    F0806      JAK-STAT signaling pathway
+       .      0    F0807      ErbB signaling pathway
+       .      0    F0808      PI3K-Akt signaling pathway
+       .      0    F0809      Wnt signaling pathway
+       .      0    F0810      VEGF signaling pathway
+       .      0    F0811      Ras signaling pathway
+
+==============================================================================
+5. RESULT / LABEL FIELDS IN THE EXPERIMENTAL RECORDS
+==============================================================================
+python type of `result` across all 4617 records:
+    bool         4617
+
+distinct raw values of `result`:
+    True         3702
+    False         915
+
+  `func_act` (direction of effect on the function)  (26 distinct non-empty values; 516 empty/None)
+      2933  decrease
+       471  increase
+       384  affect
+        95  induce
+        53  inhibit
+        33  inhibition
+        31  Increase
+        20  Decrease
+        17  inhibitor
+        13  Affect
+        13  accumulation
+         8  reduce
+         5  stimulate
+         5  Interfere
+         4  abnormalize
+         2  depletion
+         2  enhance
+         2  block
+         2  Change
+         2  lower
+         1  damage
+         1  inducer
+         1  deplete GSH
+         1  restore GSH
+         1  peroxidation
+    ... 1 more distinct values not shown
+
+  `targ_act` (direction of effect on the target)  (30 distinct non-empty values; 3523 empty/None)
+       537  inhibitor
+       211  inhibit
+        85  release
+        52  increase
+        36  decrease
+        30  inhibition
+        27  leakage
+        19  antagonist
+        17  Inhibition
+        15  not specified
+        14  activate
+         6  competitive inhibitor
+         6  mobile conformation
+         6  fixed conformation
+         4  noncompetitive inhibitor
+         4  nonheme inhibitor
+         3  activation
+         3  down regulate
+         2  chelator
+         2  opener
+         2  inducer
+         2  downregulate
+         2  up regulate
+         2  bind
+         2  Oxidation
+    ... 5 more distinct values not shown
+
+  `criteria` (positive criterion)  (90 distinct non-empty values; 1144 empty/None)
+      2036  IC50
+       409  p < 0.05
+       404  EC20
+       103  p < 0.01
+        78  AC50 (μM)
+        58  IC50 (μM)
+        53  EC50
+        53   EC25(NA) [Glc/Gal]
+        52  MEC
+        33  p < 0.001
+        26  glucose/galactose IC50 ratio (JC-1 IC50 in glucos...
+        13  UC50 (nmol/mg mitochondrial protein)
+        13  IC50 (nmol/mg mitochondrial protein)
+        12  Ki
+         8  >2 fold   increase
+         7  not mentioned
+         5  observable
+         5  95% inhibition
+         4  mean
+         4  Student’s two-tail t-test, where p < 0.05
+         3  no inhibition
+         3  25% inhibition
+         3  Kd
+         3  maximal inhibition
+         3  glucose/galactose IC50 ratio
+    ... 65 more distinct values not shown
+
+==============================================================================
+6. ASSAY / METHOD FIELDS
+==============================================================================
+
+  `method`  (278 distinct non-empty values; 719 empty/None)
+      1861  MMP assay
+       160  Measurement of oxygen uptake
+        90  XFe24 Extracellular Flux Analyzer
+        87  measurement of superoxide/H2O2 production
+        79  swelling assay: Absorbance at 545 nm using a fluo...
+        79  Cytochrome c release was evaluated using  ELISA k...
+        79  Rh123 fluorescence (excitation 485 nm, emission 5...
+        79  Oxygen consumption was monitored with 50nM MitoXp...
+        79  Oxygen consumption was monitored with 50nM MitoXp...
+        59  measurements of mitochondrial respiration; RST in...
+        52  High-content screening assay
+        47  Glc–Gal–NeuriTox assay
+        44  Measurement of complex II + III activity
+        36  Measurement of mitochondrial membrane potential
+        31  Measurement of ECAR
+        30  Measurement of beta oxidation and ketone body for...
+        30  spectrophotometric assay with DTNB
+        27  Apoptosis measurement
+        26  Measurement of complex V activity
+        26  NADH–Q
+        26  high-glucose–galactose cell viability assay with ...
+        25  Measurement of OCR
+        24  Measurement of complex I activity
+        24  Measurement of LDH activities
+        21  Measurement of complex IV activity
+        20  Measurement of activities of acyl-CoA dehydrogenases
+        17  Measurement of ROS
+        17  Measurements of mitochondrial swelling
+        16  NADH–Q-1
+        16  RST assay( Respiratory Screening Technology)-meas...
+    ... 248 more distinct values not shown
+
+==============================================================================
+7. DOSE AND TIME FIELDS
+==============================================================================
+
+  `dose`  (1816 distinct non-empty values; 953 empty/None)
+       129  50 μM
+        87  ∼2.5 µM
+        80  > 400 µM
+        65  > 200 µM
+        64  100 μmol/L
+        47  ND
+        37  10 μmol/L
+        36  1 μmol/L
+        33  50 μmol/L
+        32  35.48
+        30  > 800 µM
+        29  20 μmol/L
+        29  1mM
+        25  NR
+        24  10 mM
+        22  100 nmol/mg mitochondrial protein
+        22  17.34
+        21  1 mM
+        21  5 mM
+        20  100 μM
+        20  10 µM
+        19  39.81
+        18  15.85
+        17  31.62
+        16  10 μM
+    ... 1791 more distinct values not shown
+
+  `time`  (80 distinct non-empty values; 3565 empty/None)
+       237  30 mins
+       158  60 mins
+       106  24 hours
+        98  1 hour
+        89  24hr
+        53  2 minutes
+        27  4hr
+        20  8 hours
+        16  48 hours
+        15  10 minutes
+        14  30 minutes
+        13  1 hours
+        12  5 minutes preincubation
+         9  2h
+         8  0.5 hours
+         8  overnight
+         8  24 hr
+         8  1hr
+         7  3min
+         7  48hr
+         6  12 hours
+         6  2 hours
+         6  4 hours
+         6  incubated overnight
+         6  24 hr
+    ... 55 more distinct values not shown
+
+==============================================================================
+8. SPECIES AND BIOLOGICAL MODEL FIELDS
+==============================================================================
+
+  `species`  (67 distinct non-empty values; 801 empty/None)
+      1425  human
+      1052  rat
+       425  mouse
+       214  rat; Sprague–Dawley
+       178  bovine
+        92  zebrafish
+        55  Human
+        47  mouse; Crl/CD-l(1CR)BR Swiss
+        44  human/rat
+        42  mouse; C57B/6J
+        17  rat 
+        15  Wistar rat
+        14  mouse; C57BL/6J
+        13  male CD-1 mice
+        12  Aspergillus fumigatus
+        11  rat; Fischer (F344) 
+         9  mice; C57Bl/6
+         9  S. cerevisiae
+         9  mice
+         9  ZDF fa/fa rat & ZDF lean rat
+         8  feline
+         8   postnatal day 6 (P6±1d) FVB mice
+         7  E. coli
+         7  C. asciculate
+         7  spinach
+         6  pig
+         6  ZDF fa/fa rat vs ZDF lean rat
+         5  yeast; EG103 (Wild-type)
+         4  rat; Sprague-Dawley Crl:CD (SD) BR
+         4  Mycobacterium smegmatis
+    ... 37 more distinct values not shown
+
+  `animal_model`  (210 distinct non-empty values; 663 empty/None)
+       859  hepatocytes
+       741  HepG2
+       671  liver mitochondria
+       620  qHTS-HepG2
+       125  heart mitochondria
+        96  isolated liver mitochondria
+        87  skeletal muscle mitochondria
+        47  LUHMES (Lund human mesencephalic) cells
+        34  mitochondria
+        30  recombinant Pichia pastoris Membrane Preparations 
+        27  H9c2 cells
+        26  isolated rat liver mitochondria
+        25  MCF7
+        25  HepG2 cells
+        22  in vivo
+        18  SMP-ATPase
+        16  isolated kidney mitochondria
+        14  isolated skeletal muscle mitochondria
+        14  PC12 cells
+        13  isolated heart mitochondria
+        11  Hippocampal Neurons
+        11  HeLa cells
+        11  neuron
+        10  CAL27
+        10  UM1
+    ... 185 more distinct values not shown
+
+==============================================================================
+9-11. CHEMICAL IDENTIFIERS IN THE COMPOUND TABLE
+==============================================================================
+all compound fields: abbrev_name, absorption, atc_codes, cid, classification, clearance, compound_ID, description, drug_type, function, group, half_life, indications, molecular_formula, molecular_weight, name, protein_binding, references, route_of_elimination, side_effects, state, synonyms, target, trade_name, volume_of_distribution
+
+substring search over field names (case-insensitive):
+  smiles               -> ABSENT
+  smile                -> ABSENT
+  canonical_smiles     -> ABSENT
+  inchi                -> ABSENT
+  inchikey             -> ABSENT
+  structure            -> ABSENT
+  chembl               -> ABSENT
+  chebi                -> ABSENT
+  cas                  -> ABSENT
+  cid                  -> ['cid']
+  pubchem              -> ABSENT
+  drugbank             -> ABSENT
+  kegg                 -> ABSENT
+  unii                 -> ABSENT
+  molecular_formula    -> ['molecular_formula']
+  molecular_weight     -> ['molecular_weight']
+  iupac                -> ABSENT
+
+  cid                  non-empty in 1446 / 1453 compounds (99.5%)
+  molecular_formula    non-empty in 1411 / 1453 compounds (97.1%)
+  molecular_weight     non-empty in 1410 / 1453 compounds (97.0%)
+  name                 non-empty in 1453 / 1453 compounds (100.0%)
+  compound_ID          non-empty in 1453 / 1453 compounds (100.0%)
+
+==============================================================================
+12. RECORD -> COMPOUND LINKAGE
+==============================================================================
+records with a non-empty `compound` field : 4617 / 4617
+matching the 'Dxxxx: name' pattern        : 4617
+not matching that pattern                 : 0
+
+distinct compound IDs referenced by records : 1235
+compound IDs in the compounds table         : 1453
+referenced but absent from compounds table  : 0 
+in compounds table but never referenced     : 218
+
+==============================================================================
+13. TARGET AND PAPER LINKAGE
+==============================================================================
+records with a non-empty `targ`  : 1166 / 4617
+targ ids absent from targets table: 0 []
+records with a non-empty `paper` : 4617 / 4617
+paper fields: Isbn, Issn, abstract, authors, chapter, doi, issue, journal, pages, pap_id, pmcid, pmid, pub_date, pub_year, references, title, url, volume

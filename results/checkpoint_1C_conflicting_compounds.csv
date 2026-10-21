@@ -1,0 +1,116 @@
+PUBCHEM_CID,PUBCHEM_SID,PUBCHEM_ACTIVITY_OUTCOME,Activity Summary,Ratio Potency (uM),Ratio Efficacy (%),Viability Activity,Sample Source,PUBCHEM_EXT_DATASOURCE_SMILES
+10316,144208365,Active,active antagonist,68.5896,-44.5342,inactive,SIGMA,C1=CC=C(C=C1)N=[N+](C2=CC=CC=C2)[O-]
+10316,144204659,Inactive,inactive,,0,inactive,NIEHS,C1=CC=C(C=C1)N=[N+](C2=CC=CC=C2)[O-]
+1057,144209571,Active,active antagonist,12.0856,-36.2236,inactive,Battelle Memorial,C1=CC(=C(C(=C1)O)O)O
+1057,144204694,Inactive,inactive,,0,inactive,NIEHS,C1=CC(=C(C(=C1)O)O)O
+1123,144209718,Active,active antagonist,10.8697,-96.3168,inactive,SIGMA,C(CS(=O)(=O)O)N
+1123,144203828,Inactive,inactive,,0,inactive,BIOMOL,C(CS(=O)(=O)O)N
+11289,144209559,Active,active antagonist,26.1444,-58.4975,inactive,SIGMA,COC1=CC=C(C=C1)C(=C(C2=CC=C(C=C2)OC)Cl)C3=CC=C(C=C3)OC
+11289,144213214,Active,active antagonist,24.3365,-59.6758,inactive,SIGMA,COC1=CC=C(C=C1)C(=C(C2=CC=C(C=C2)OC)Cl)C3=CC=C(C=C3)OC
+11289,144204017,Inactive,inactive,,0,inactive,NIEHS,COC1=CC=C(C=C1)C(=C(C2=CC=C(C=C2)OC)Cl)C3=CC=C(C=C3)OC
+11443,144207342,Active,active antagonist,26.9475,-61.412,inactive,Sensient,CC1=C(C=C(C=C1)N=C=O)N=C=O
+11443,144210480,Inactive,inactive,,0,inactive,LightBiologicals,CC1=C(C=C(C=C1)N=C=O)N=C=O
+11443,144209256,Inconclusive,inconclusive,54.3165,-54.0852,inactive,SIGMA,CC1=C(C=C(C=C1)N=C=O)N=C=O
+12305761,144206767,Active,active antagonist,33.4915,-76.2761,inactive,NCI,C1=CC2=C(C(=C1)O)C(=O)C3=C([C@H]2[C@H]4[C@@H]([C@H]([C@@H]([C@H](O4)CO)O)O)O)C=C(C=C3O)CO
+12305761,144205048,Inactive,inactive,,0,inactive,Microsource,C1=CC2=C(C(=C1)O)C(=O)C3=C([C@H]2[C@H]4[C@@H]([C@H]([C@@H]([C@H](O4)CO)O)O)O)C=C(C=C3O)CO
+14709,144208161,Active,active antagonist,61.1306,-67.2435,inactive,SigmaAldrich,CC(=O)O[C@H]1CC[C@@]2([C@H]3CC[C@]4([C@H]([C@@H]3CC=C2C1)CCC4=O)C)C
+14709,144204036,Inactive,inactive,,0,inactive,"Prestwick Chemical, Inc.",CC(=O)O[C@H]1CC[C@@]2([C@H]3CC[C@]4([C@H]([C@@H]3CC=C2C1)CCC4=O)C)C
+16043,144203558,Active,active antagonist,24.0651,-91.976,inactive,SigmaAldrich,CC(C)(C)C1=C(C=CC(=C1)O)O
+16043,144203557,Inactive,inactive,,0,inactive,NCI,CC(C)(C)C1=C(C=CC(=C1)O)O
+16043,144209507,Inactive,inactive,,0,inactive,SigmaAldrich,CC(C)(C)C1=C(C=CC(=C1)O)O
+16043,144210401,Inactive,inactive,,0,inactive,SIGMA,CC(C)(C)C1=C(C=CC(=C1)O)O
+162461,144213810,Active,active antagonist,52.4314,-89.759,inactive,Sigma DiscoveryCPR,CC1=C(C=CC(=C1)OC)NC2=CC=CC=C2
+162461,144209038,Inactive,inactive,,0,inactive,Sensient,CC1=C(C=CC(=C1)OC)NC2=CC=CC=C2
+20250,144207869,Active,active antagonist,43.0572,-93.322,inactive,SIGMA,C1=CC(=C(C=C1Cl)Cl)C(=O)CCl
+20250,144206797,Inactive,inactive,,0,inactive,NIEHS,C1=CC(=C(C=C1Cl)Cl)C(=O)CCl
+20250,144207010,Inactive,inactive,,0,inactive,SigmaAldrich,C1=CC(=C(C=C1Cl)Cl)C(=O)CCl
+2328,144211059,Active,active antagonist,51.435,-56.2406,inactive,SIGMA,CC(C)N1C(=O)C2=CC=CC=C2NS1(=O)=O
+2328,144209149,Inactive,inactive,,0,inactive,SigmaAldrich,CC(C)N1C(=O)C2=CC=CC=C2NS1(=O)=O
+23716429,144206201,Active,active antagonist,23.7101,-64.611,inconclusive antagonist,NCI,CCCCCC[C@H](C/C=C\CCCCCCCC(=O)[O-])O.[K+]
+23716429,144205543,Inactive,inactive,,0,inactive,NCI,CCCCCC[C@H](C/C=C\CCCCCCCC(=O)[O-])O.[K+]
+2788,144207489,Active,active antagonist,44.8788,-102.481,inactive,SIGMA,C1=CC2=C(C(=C(C=C2Cl)I)O)N=C1
+2788,144203967,Inactive,inactive,,0,inactive,NIEHS,C1=CC2=C(C(=C(C=C2Cl)I)O)N=C1
+30541,144213879,Active,active antagonist,29.4844,-86.7935,inconclusive antagonist,SIGMA,CCCCC(CC)COC(=O)C1=CC=C(C=C1)N(C)C
+30541,144204564,Inactive,inactive,,0,inactive,SigmaAldrich,CCCCC(CC)COC(=O)C1=CC=C(C=C1)N(C)C
+30541,144209619,Inconclusive,inconclusive,20.1896,-52.7373,inactive,SIGMA,CCCCC(CC)COC(=O)C1=CC=C(C=C1)N(C)C
+3082221,144207174,Active,active antagonist,32.2305,-69.3549,inactive,Toronto Research,CCN1CCCC1CNC(=O)C2=C(C=CC(=C2)S(=O)(=O)CC)OC.Cl
+3082221,144207175,Inactive,inactive,,0,inactive,Toronto Research,CCN1CCCC1CNC(=O)C2=C(C=CC(=C2)S(=O)(=O)CC)OC.Cl
+31404,144208291,Active,active antagonist,35.7938,-76.3753,inactive,SIGMA,CC1=CC(=C(C(=C1)C(C)(C)C)O)C(C)(C)C
+31404,144213719,Active,active antagonist,27.306,-59.5733,inactive,SIGMA,CC1=CC(=C(C(=C1)C(C)(C)C)O)C(C)(C)C
+31404,144207086,Inactive,inactive,,0,inactive,SigmaAldrich,CC1=CC(=C(C(=C1)C(C)(C)C)O)C(C)(C)C
+36324,144208555,Active,active antagonist,68.8687,-81.2232,inactive,SigmaAldrich,CC1=CC(=C(C=C1)N=CN(C)C=NC2=C(C=C(C=C2)C)C)C
+36324,144204851,Inactive,inactive,,0,inactive,Microsource,CC1=CC(=C(C=C1)N=CN(C)C=NC2=C(C=C(C=C2)C)C)C
+36324,144211247,Inconclusive,inconclusive antagonist,,-59.1954,inconclusive agonist,SIGMA,CC1=CC(=C(C=C1)N=CN(C)C=NC2=C(C=C(C=C2)C)C)C
+36383,144213264,Active,active antagonist,41.6478,-39.3827,inactive,SIGMA,C1=CC(=C(C=C1N(CCO)CCO)[N+](=O)[O-])NCCO
+36383,144209455,Inactive,inactive,,0,inactive,SIGMA,C1=CC(=C(C=C1N(CCO)CCO)[N+](=O)[O-])NCCO
+3672,144208582,Active,active antagonist,11.0368,-53.7719,inactive,SigmaAldrich,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O
+3672,144203721,Inactive,inactive,,0,inactive,SigmaAldrich,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O
+3672,144213146,Inactive,inactive,,0,inactive,SIGMA,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O
+3883,144211340,Active,active antagonist,54.4827,-80.1189,inactive,SIGMA,CC1=C(C=CN=C1CS(=O)C2=NC3=CC=CC=C3N2)OCC(F)(F)F
+3883,144203735,Inactive,inactive,,0,inactive,"Prestwick Chemical, Inc.",CC1=C(C=CN=C1CS(=O)C2=NC3=CC=CC=C3N2)OCC(F)(F)F
+4021,144205630,Active,active antagonist,16.3953,-135.66,inactive,SigmaAldrich,CC1=NN(C(=O)C1)C2=CC=CC=C2
+4021,144208945,Active,active antagonist,61.5038,-105.895,inactive,SIGMA,CC1=NN(C(=O)C1)C2=CC=CC=C2
+4021,144213136,Inactive,inactive,,0,inactive,LightBiologicals,CC1=NN(C(=O)C1)C2=CC=CC=C2
+443939,144209681,Active,active antagonist,0.229359,-58.3345,active agonist,Toronto Research,C[C@H]1[C@H]([C@H](C[C@@H](O1)O[C@H]2C[C@@](CC3=C2C(=C4C(=C3O)C(=O)C5=C(C4=O)C(=CC=C5)OC)O)(C(=O)CO)O)N)O.Cl
+443939,144203601,Inactive,inactive,,0,inactive,NCI,C[C@H]1[C@H]([C@H](C[C@@H](O1)O[C@H]2C[C@@](CC3=C2C(=C4C(=C3O)C(=O)C5=C(C4=O)C(=CC=C5)OC)O)(C(=O)CO)O)N)O.Cl
+443939,144205614,Inconclusive,inconclusive,4.21632,-31.0528,inconclusive agonist,BIOMOL,C[C@H]1[C@H]([C@H](C[C@@H](O1)O[C@H]2C[C@@](CC3=C2C(=C4C(=C3O)C(=O)C5=C(C4=O)C(=CC=C5)OC)O)(C(=O)CO)O)N)O.Cl
+444795,144209528,Active,active antagonist,46.7771,-108.019,inactive,SIGMA,CC1=C(C(CCC1)(C)C)/C=C/C(=C/C=C/C(=C/C(=O)O)/C)/C
+444795,144210625,Active,active antagonist,68.5199,-81.5981,inactive,SIGMA,CC1=C(C(CCC1)(C)C)/C=C/C(=C/C=C/C(=C/C(=O)O)/C)/C
+444795,144204363,Inactive,inactive,,0,inactive,Labotest,CC1=C(C(CCC1)(C)C)/C=C/C(=C/C=C/C(=C/C(=O)O)/C)/C
+445354,144209639,Active,active antagonist,72.1437,-45.3183,inactive,SIGMA,CC1=C(C(CCC1)(C)C)/C=C/C(=C/C=C/C(=C/CO)/C)/C
+445354,144210607,Inactive,inactive,,0,inactive,LightBiologicals,CC1=C(C(CCC1)(C)C)/C=C/C(=C/C=C/C(=C/CO)/C)/C
+445354,144204369,Inconclusive,inconclusive,1.25873,31.8683,inconclusive agonist,SigmaAldrich,CC1=C(C(CCC1)(C)C)/C=C/C(=C/C=C/C(=C/CO)/C)/C
+4684,144208902,Active,active antagonist,60.1993,-68.6071,inactive,SIGMA,C1=CC(=CC=C1O)Cl
+4684,144204579,Inactive,inactive,,0,inactive,NIEHS,C1=CC(=CC=C1O)Cl
+4684,144213177,Inconclusive,inconclusive,63.5221,-39.769,inactive,Enamine,C1=CC(=CC=C1O)Cl
+4943,144208569,Active,active antagonist,58.6496,-64.2761,inactive,Research Biochemical,CC(C)C1=C(C(=CC=C1)C(C)C)O
+4943,144213542,Active,active antagonist,57.711,-74.5746,inactive,SIGMA,CC(C)C1=C(C(=CC=C1)C(C)C)O
+4943,144203685,Inactive,inactive,,0,inactive,BIOMOL,CC(C)C1=C(C(=CC=C1)C(C)C)O
+53518,144209205,Active,active antagonist,60.2678,-44.1383,inactive,SigmaAldrich,CCOC(=O)C(C)OC1=CC=C(C=C1)OC2=CN=C3C=C(C=CC3=N2)Cl
+53518,144211357,Inactive,inactive,,0,inactive,SIGMA,CCOC(=O)C(C)OC1=CC=C(C=C1)OC2=CN=C3C=C(C=CC3=N2)Cl
+5366546,144207852,Active,active antagonist,20.1439,-43.4885,inactive,SIGMA,CC(C)OC(=O)/C=C(\C)/C=C/CC(C)CCCC(C)(C)OC
+5366546,144204570,Inactive,inactive,,0,inactive,SigmaAldrich,CC(C)OC(=O)/C=C(\C)/C=C/CC(C)CCCC(C)(C)OC
+5447130,144213996,Active,active antagonist,40.0798,-58.4953,inactive,SIGMA,C1=C(OC(=C1)[N+](=O)[O-])/C=N/NC(=O)N
+5447130,144204548,Inactive,inactive,,0,inactive,SigmaAldrich,C1=C(OC(=C1)[N+](=O)[O-])/C=N/NC(=O)N
+5447130,144210186,Inconclusive,inconclusive agonist,16.8442,52.2371,inactive,SIGMA,C1=C(OC(=C1)[N+](=O)[O-])/C=N/NC(=O)N
+54677470,144205287,Active,active antagonist,11.4358,-113.278,inconclusive agonist,Bionet,CC1=CN=C(S1)NC(=O)C2=C(C3=CC=CC=C3S(=O)(=O)N2C)O
+54677470,144208887,Active,active antagonist,13.197,-104.787,inactive,Sensient,CC1=CN=C(S1)NC(=O)C2=C(C3=CC=CC=C3S(=O)(=O)N2C)O
+54677470,144213073,Active,active antagonist,20.0875,-124.256,inactive,Enamine,CC1=CN=C(S1)NC(=O)C2=C(C3=CC=CC=C3S(=O)(=O)N2C)O
+54677470,144206743,Inactive,inactive,,0,inactive,Microsource,CC1=CN=C(S1)NC(=O)C2=C(C3=CC=CC=C3S(=O)(=O)N2C)O
+60560,144210901,Active,active antagonist,68.5896,-79.5855,inconclusive antagonist,LightBiologicals,CCC1=CN=C(C=C1)CCOC2=CC=C(C=C2)CC3C(=O)NC(=O)S3.Cl
+60560,144204993,Inactive,inactive,,0,inactive,Microsource,CCC1=CN=C(C=C1)CCOC2=CC=C(C=C2)CC3C(=O)NC(=O)S3.Cl
+60962,144213253,Active,active antagonist,68.5896,-41.4123,inactive,Enamine,C1=CC=C(C=C1)NN.Cl
+60962,144205171,Inactive,inactive,,0,inactive,Labotest,C1=CC=C(C=C1)NN.Cl
+60962,144209396,Inconclusive,inconclusive antagonist,68.4501,-47.1096,inactive,SigmaAldrich,C1=CC=C(C=C1)NN.Cl
+6950,144210739,Active,active antagonist,0.357211,-112.301,active antagonist,LightBiologicals,CCC(C)C1=C(C(=CC(=C1)[N+](=O)[O-])[N+](=O)[O-])O
+6950,144209076,Inactive,inactive,,0,inactive,ChemService,CCC(C)C1=C(C(=CC(=C1)[N+](=O)[O-])[N+](=O)[O-])O
+6982,144211226,Active,active antagonist,4.67296,-100.739,inconclusive antagonist,SIGMA,CC1=CC(=C(C=C1Cl)C(C)C)O
+6982,144205175,Inactive,inactive,,0,inactive,Labotest,CC1=CC(=C(C=C1Cl)C(C)C)O
+6989,144210676,Active,active antagonist,27.306,-78.0763,inconclusive antagonist,SIGMA,CC1=CC(=C(C=C1)C(C)C)O
+6989,144205166,Inactive,inactive,,0,inactive,Labotest,CC1=CC(=C(C=C1)C(C)C)O
+727,144207874,Active,active antagonist,49.0025,-54.1448,inactive,SigmaAldrich,C1(C(C(C(C(C1Cl)Cl)Cl)Cl)Cl)Cl
+727,144204846,Inactive,inactive,,0,inactive,Labotest,C1(C(C(C(C(C1Cl)Cl)Cl)Cl)Cl)Cl
+727,144209488,Inactive,inactive,,0,inactive,SIGMA,C1(C(C(C(C(C1Cl)Cl)Cl)Cl)Cl)Cl
+727,144208975,Inconclusive,inconclusive antagonist (cytotoxic),31.2621,-88.1083,inconclusive antagonist,SigmaAldrich,C1(C(C(C(C(C1Cl)Cl)Cl)Cl)Cl)Cl
+727,144209267,Inconclusive,inconclusive,64.2263,-49.6979,inactive,SigmaAldrich,C1(C(C(C(C(C1Cl)Cl)Cl)Cl)Cl)Cl
+727,144210941,Inconclusive,inconclusive antagonist,12.1972,-58.2805,inactive,SIGMA,C1(C(C(C(C(C1Cl)Cl)Cl)Cl)Cl)Cl
+727,144211270,Inconclusive,inconclusive,,,inactive,SIGMA,C1(C(C(C(C(C1Cl)Cl)Cl)Cl)Cl)Cl
+727,144213242,Inconclusive,inconclusive antagonist (cytotoxic),29.4844,-88.8126,active antagonist,SIGMA,C1(C(C(C(C(C1Cl)Cl)Cl)Cl)Cl)Cl
+73665,144208664,Active,active antagonist,70.057,-60.5674,inconclusive antagonist,SIGMA,CCCN(CCOC1=C(C=C(C=C1Cl)Cl)Cl)C(=O)N2C=CN=C2
+73665,144211496,Inactive,inactive,,0,inactive,SIGMA,CCCN(CCOC1=C(C=C(C=C1Cl)Cl)Cl)C(=O)N2C=CN=C2
+7935,144209304,Active,active antagonist,24.0398,-52.9002,inactive,SIGMA,C1=CC(=CC(=C1)N)N
+7935,144210808,Inactive,inactive,,0,inactive,LightBiologicals,C1=CC(=CC(=C1)N)N
+8813,144208920,Active,active antagonist,6.31993,-39.6922,inactive,SIGMA,C1=CC(=CC=C1C(=N)N)OCCCCCOC2=CC=C(C=C2)C(=N)N.C(CS(=O)(=O)O)O.C(CS(=O)(=O)O)O
+8813,144204293,Inactive,inactive,,0,inactive,SigmaAldrich,C1=CC(=CC=C1C(=N)N)OCCCCCOC2=CC=C(C=C2)C(=N)N.C(CS(=O)(=O)O)O.C(CS(=O)(=O)O)O
+8813,144210632,Inconclusive,inconclusive agonist,11.6524,58.4664,inactive,SIGMA,C1=CC(=CC=C1C(=N)N)OCCCCCOC2=CC=C(C=C2)C(=N)N.C(CS(=O)(=O)O)O.C(CS(=O)(=O)O)O
+8981,144209665,Active,active antagonist,56.1884,-110.753,inactive,SIGMA,CC1=CC(NC2=CC=CC=C12)(C)C
+8981,144208275,Inactive,inactive,,0,inactive,SIGMA,CC1=CC(NC2=CC=CC=C12)(C)C
+9217,144213558,Active,active antagonist,63.5221,-46.1478,inactive,SIGMA,C1=CC=C2C(=C1)OC3=CC=CC=C3S2
+9217,144209473,Inactive,inactive,,0,inactive,SIGMA,C1=CC=C2C(=C1)OC3=CC=CC=C3S2
+9403,144203554,Active,active antagonist,6.68242,-57.5367,inconclusive,NCI,C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4CCCC4)CCC5=C3C=CC(=C5)O
+9403,144205884,Inactive,inactive,,0,inactive,SIGMA,C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4CCCC4)CCC5=C3C=CC(=C5)O
+9403,144212135,Inconclusive,inconclusive antagonist (cytotoxic),28.3743,-131.993,inconclusive antagonist,SIGMA,C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OC(=O)CCC4CCCC4)CCC5=C3C=CC(=C5)O
+991,144209203,Active,active antagonist,58.416,-76.3982,inactive,SigmaAldrich,CCOP(=S)(OCC)OC1=CC=C(C=C1)[N+](=O)[O-]
+991,144210980,Inactive,inactive,,0,inactive,SIGMA,CCOP(=S)(OCC)OC1=CC=C(C=C1)[N+](=O)[O-]
+998,144213262,Active,active antagonist,54.4827,-114.169,inactive,SIGMA,C1=CC=C(C=C1)CC=O
+998,144208780,Inactive,inactive,,0,inactive,Alfa Aesar,C1=CC=C(C=C1)CC=O

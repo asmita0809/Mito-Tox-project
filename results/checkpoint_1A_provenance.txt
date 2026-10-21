@@ -1,0 +1,184 @@
+==============================================================================
+PROVENANCE OF THE F0108 ('membrane potential') RECORDS
+==============================================================================
+total F0108 records: 1997
+
+pap_id       n   True  False  cmpds    year  tox21?    title
+------------------------------------------------------------------------------
+163       1861   1573    288    619    2018  YES       Comprehensive Analyses and Prioritization of Tox21 10K Chemicals...
+36          79     77      2     78    2012  no        Prediction of liver injury induced by chemicals in human with a ...
+4           25      8     17      5    2005  no        Mechanisms of benzarone and benzbromarone-induced hepatic toxici...
+306         18     13      5     17    2015  no        High-content screening of drug-induced mitochondrial impairment ...
+15           5      4      1      3    2008  no        Biguanide-induced mitochondrial dysfunction yields increased lac...
+6            4      3      1      1    2002  no        Role of mitochondrial permeability transition in diclofenac-indu...
+162          2      2      0      2    2014  no        Novel inhibitors of mitochondrial sn-glycerol 3-phosphate dehydr...
+193          1      1      0      1    1994  no        Inhibition by perhexiline of oxidative phosphorylation and the b...
+284          1      1      0      1    2009  no        Mechanisms of anti-cancer action and pharmacology of clofarabine...
+307          1      1      0      1    2019  no        Impact of pharmacological agents on mitochondrial function: a gr...
+
+Full metadata per paper, largest first:
+
+------------------------------------------------------------------------------
+pap_id 163   n=1861   year=2018
+  title    : Comprehensive Analyses and Prioritization of Tox21 10K Chemicals Affecting Mitochondrial Function by in-Depth Mechanistic Studies.
+  journal  : Environmental Health Perspectives
+  doi/pmid : 10.1289/EHP2589 / 30059008.0
+  authors  : Xia, Menghang; Huang, Ruili; Shi, Qiang; Boyd, Windy A; Zhao, Jinghua; Sun, Nuo; Rice, Julie R; Dunlap, Paul E; Hackstadt, Amber J; Bridge, Matt F; Sm
+  Tox21 markers found in title/abstract/journal: ['Tox21', 'quantitative high-throughput', '10K']
+  method   : {'MMP assay': 1861}
+  animal_model: {'hepatocytes': 621, 'qHTS-HepG2': 620, 'HepG2': 620}
+  species  : {'human': 1240, 'rat': 621}
+  criteria : {'IC50': 1861}
+  criteria kind : {'potency-type': 1861}
+  dose kind     : {'value +- SD (no unit)': 1029, 'empty': 288, 'bare number (no unit)': 544}
+  result        : True=1573 False=288
+
+------------------------------------------------------------------------------
+pap_id 36   n=79   year=2012
+  title    : Prediction of liver injury induced by chemicals in human with a multiparametric assay on isolated mouse liver mitochondria.
+  journal  : Toxicological Sciences
+  doi/pmid : 10.1093/toxsci/kfs197 / 22987451.0
+  authors  : Porceddu, Mathieu; Buron, Nelly; Roussel, Célestin; Labbe, Gilles; Fromenty, Bernard; Borgne-Sanchez, Annie
+  Tox21 markers found in title/abstract/journal: none
+  method   : {'Rh123 fluorescence (excitation 485 nm, e': 79}
+  animal_model: {'liver mitochondria': 79}
+  species  : {'mouse': 79}
+  criteria : {'EC20': 79}
+  criteria kind : {'potency-type': 79}
+  dose kind     : {'relation (> or <)': 22, 'number with unit': 55, 'empty': 2}
+  result        : True=77 False=2
+
+------------------------------------------------------------------------------
+pap_id 4   n=25   year=2005
+  title    : Mechanisms of benzarone and benzbromarone-induced hepatic toxicity.
+  journal  : Hepatology
+  doi/pmid : 10.1002/hep.20634 / 15799034.0
+  authors  : Kaufmann, Priska; Török, Michael; Hänni, Anya; Roberts, Paul; Gasser, Rodolfo; Krähenbühl, Stephan
+  Tox21 markers found in title/abstract/journal: none
+  method   : {'Measurement of mitochondrial membrane po': 25}
+  animal_model: {'hepatocytes': 25}
+  species  : {'rat; Sprague–Dawley': 25}
+  criteria : {'p < 0.05': 18, 'p < 0.01': 7}
+  criteria kind : {'significance-type': 25}
+  dose kind     : {'number with unit': 25}
+  result        : True=8 False=17
+
+------------------------------------------------------------------------------
+pap_id 306   n=18   year=2015
+  title    : High-content screening of drug-induced mitochondrial impairment in hepatic cells: effects of statins.
+  journal  : Archives of Toxicology
+  doi/pmid : 10.1007/s00204-014-1334-3 / 25160661.0
+  authors  : Tolosa, Laia; Carmona, Antonio; Castell, Jos? V; G?mez-Lech?n, M Jos?; Donato, M Teresa
+  Tox21 markers found in title/abstract/journal: none
+  method   : {'High-content screening assay': 18}
+  animal_model: {'HepG2': 18}
+  species  : {'Human': 18}
+  criteria : {'MEC': 18}
+  criteria kind : {'potency-type': 18}
+  dose kind     : {'relation (> or <)': 5, 'number with unit': 13}
+  result        : True=13 False=5
+
+------------------------------------------------------------------------------
+pap_id 15   n=5   year=2008
+  title    : Biguanide-induced mitochondrial dysfunction yields increased lactate production and cytotoxicity of aerobically-poised HepG2 cells and human hepatocytes in vitro.
+  journal  : Toxicology and Applied Pharmacology
+  doi/pmid : 10.1016/j.taap.2008.08.013 / 18817800.0
+  authors  : Dykens, James A; Jamieson, Joseph; Marroquin, Lisa; Nadanaciva, Sashi; Billis, Puja A; Will, Yvonne
+  Tox21 markers found in title/abstract/journal: none
+  method   : {'Measurement of mitochondrial membrane po': 5}
+  animal_model: {'hepatocytes': 5}
+  species  : {'human': 5}
+  criteria : {'(empty)': 5}
+  criteria kind : {'(empty)': 5}
+  dose kind     : {'number with unit': 5}
+  result        : True=4 False=1
+
+------------------------------------------------------------------------------
+pap_id 6   n=4   year=2002
+  title    : Role of mitochondrial permeability transition in diclofenac-induced hepatocyte injury in rats.
+  journal  : Hepatology
+  doi/pmid : 10.1053/jhep.2002.31871 / 11870366.0
+  authors  : Masubuchi, Yasuhiro; Nakayama, Shintaro; Horie, Toshiharu
+  Tox21 markers found in title/abstract/journal: none
+  method   : {'Assessment of Mitochondrial Membrane Pot': 4}
+  animal_model: {'liver mitochondria': 2, 'hepatocytes': 2}
+  species  : {'rat': 4}
+  criteria : {'p < 0.01': 3, 'p < 0.05': 1}
+  criteria kind : {'significance-type': 4}
+  dose kind     : {'number with unit': 4}
+  result        : True=3 False=1
+
+------------------------------------------------------------------------------
+pap_id 162   n=2   year=2014
+  title    : Novel inhibitors of mitochondrial sn-glycerol 3-phosphate dehydrogenase.
+  journal  : Plos One
+  doi/pmid : 10.1371/journal.pone.0089938 / 24587137.0
+  authors  : Orr, Adam L; Ashok, Deepthi; Sarantos, Melissa R; Ng, Ryan; Shi, Tong; Gerencser, Akos A; Hughes, Robert E; Brand, Martin D
+  Tox21 markers found in title/abstract/journal: none
+  method   : {'(empty)': 2}
+  animal_model: {'(empty)': 2}
+  species  : {'(empty)': 2}
+  criteria : {'(empty)': 2}
+  criteria kind : {'(empty)': 2}
+  dose kind     : {'number with unit': 1, 'empty': 1}
+  result        : True=2 False=0
+
+------------------------------------------------------------------------------
+pap_id 193   n=1   year=1994
+  title    : Inhibition by perhexiline of oxidative phosphorylation and the beta-oxidation of fatty acids: possible role in pseudoalcoholic liver lesions.
+  journal  : Hepatology
+  doi/pmid :  / 8138270.0
+  authors  : Deschamps, D; DeBeco, V; Fisch, C; Fromenty, B; Guillouzo, A; Pessayre, D
+  Tox21 markers found in title/abstract/journal: none
+  method   : {'Measurement of mitochondrial membrane po': 1}
+  animal_model: {'liver mitochondria': 1}
+  species  : {'mouse; Crl/CD-l(1CR)BR Swiss': 1}
+  criteria : {'(empty)': 1}
+  criteria kind : {'(empty)': 1}
+  dose kind     : {'number with unit': 1}
+  result        : True=1 False=0
+
+------------------------------------------------------------------------------
+pap_id 284   n=1   year=2009
+  title    : Mechanisms of anti-cancer action and pharmacology of clofarabine.
+  journal  : Biochemical Pharmacology
+  doi/pmid : 10.1016/j.bcp.2009.06.094 / 19576186.0
+  authors  : Zhenchuk, Anna; Lotfi, Koroush; Juliusson, Gunnar; Albertioni, Freidoun
+  Tox21 markers found in title/abstract/journal: none
+  method   : {'(empty)': 1}
+  animal_model: {'(empty)': 1}
+  species  : {'(empty)': 1}
+  criteria : {'(empty)': 1}
+  criteria kind : {'(empty)': 1}
+  dose kind     : {'empty': 1}
+  result        : True=1 False=0
+
+------------------------------------------------------------------------------
+pap_id 307   n=1   year=2019
+  title    : Impact of pharmacological agents on mitochondrial function: a growing opportunity?
+  journal  : Biochemical Society Transactions
+  doi/pmid : 10.1042/BST20190280 / 31696924.0
+  authors  : Stoker, Megan L; Newport, Emma; Hulit, James C; West, A Phillip; Morten, Karl J
+  Tox21 markers found in title/abstract/journal: none
+  method   : {'(empty)': 1}
+  animal_model: {'(empty)': 1}
+  species  : {'(empty)': 1}
+  criteria : {'(empty)': 1}
+  criteria kind : {'(empty)': 1}
+  dose kind     : {'empty': 1}
+  result        : True=1 False=0
+
+==============================================================================
+DOSE-FIELD SEMANTICS: criteria kind vs dose format, ALL 4617 records
+==============================================================================
+criteria kind        bare number (no unit)                 empty      number with unit                 other     relation (> or <) value +- SD (no unit)
+(empty)                                  0                   651                   485                     6                     2                     0
+other                                    0                     0                    86                     2                     0                     0
+potency-type                           663                   302                   407                   115                   238                  1087
+significance-type                        0                     0                   572                     1                     0                     0
+
+==============================================================================
+CROSS-PAPER COMPOUND OVERLAP WITHIN F0108
+==============================================================================
+compounds by number of source papers: {2: 31, 3: 1, 1: 663}
+compounds appearing in more than one paper: 32

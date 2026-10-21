@@ -1,0 +1,17 @@
+alert,name,n_matches,n_active,n_inactive,pct_of_actives,odds_ratio,fisher_p,rationale
+salicylanilide,Salicylanilide,10,9,1,1.0022271714922049,51.01349831271091,3.4588891244518014e-07,Salicylanilide uncouplers (niclosamide class).
+nitrophenol,Nitrophenol (phenol + aromatic nitro),26,22,4,2.4498886414253898,31.618721461187214,5.830239757201241e-15,"Classic protonophoric uncoupler pharmacophore: an acidic, lipophilic, delocalised anion that shuttles protons across the inner membrane (the DNP archetype)."
+anthraquinone,Anthraquinone,31,26,5,2.89532293986637,30.025229357798164,2.711926821017419e-17,Fused-ring quinone; electron-transport interference.
+hindered_phenol,Sterically hindered phenol (BHT-like),30,24,6,2.6726057906458798,23.038901601830663,3.7313512081735866e-15,"Lipophilic antioxidant phenols reported to perturb respiration; the BHT/BHA structural family, directly relevant to food additives."
+halogenated_phenol,Halogenated phenol,88,60,28,6.6815144766147,12.816229116945108,1.1375113655366428e-29,Halogens lower phenol pKa and raise logP - the two properties that make a weak acid an effective uncoupler.
+aromatic_azo,Aromatic azo,20,10,10,1.1135857461024499,5.664414414414415,0.00025850879155982134,Azo dyes; reductive cleavage yields aromatic amines. Common among colour additives.
+nitroaromatic,Aromatic nitro group,221,91,130,10.133630289532293,4.258983890954151,9.684611396669485e-22,"Redox cycling and, on an acidic ring, protonophoric uncoupling."
+dithiocarbamate,Dithiocarbamate,10,3,7,0.33407572383073497,2.410055865921788,0.18286495468729647,Metal chelation and thiol reactivity. Flagged specifically because salt stripping merges the metal complexes with their alkali salts in this dataset (see flag_metal_removed).
+para_quinone,para-Quinone,8,2,6,0.22271714922049,1.8727678571428572,0.3467262978893603,Redox cycling with the respiratory chain; superoxide generation.
+michael_acceptor,Michael acceptor (enone),481,73,408,8.129175946547884,1.0045632798573976,0.9471543219888403,Thiol-reactive electrophile; glutathione depletion.
+epoxide,Epoxide,60,3,57,0.33407572383073497,0.2930314613349015,0.027808639967835863,Strained electrophile; protein and DNA alkylation.
+biguanide,Biguanide,5,0,5,0.0,0.0,1.0,"Complex I inhibition (metformin/phenformin class). Bond orders are
+          left unspecified because the biguanide tautomer drawn varies between
+          depositors; ring atoms are excluded so triazines such as melamine do
+          not match."
+ortho_quinone,ortho-Quinone,0,0,0,0.0,,1.0,Redox cycling; also a strong electrophile.

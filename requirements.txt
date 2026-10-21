@@ -1,0 +1,13 @@
+# Exact versions used to produce every result in README.md (Python 3.10.12).
+# The same results reproduced bit-identically under Python 3.13 with
+# scikit-learn 1.8.0 and numpy 2.4.4, so these are pins for convenience,
+# not a narrow dependency.
+numpy==2.2.6
+pandas==2.3.3
+scipy==1.15.3
+scikit-learn==1.7.2
+xgboost==3.2.0
+rdkit==2026.3.5
+matplotlib==3.10.9
+joblib==1.6.0
+requests==2.31.0

@@ -1,0 +1,63 @@
+{
+  "winner": {
+    "config": "B_morgan_desc|xgboost|max_depth=6,learning_rate=0.1,min_child_weight=1,scale_pos_weight=neg_over_pos",
+    "representation": "B_morgan_desc",
+    "model": "xgboost",
+    "params": {
+      "max_depth": 6,
+      "learning_rate": 0.1,
+      "min_child_weight": 1,
+      "scale_pos_weight": "neg_over_pos"
+    },
+    "pr_auc_mean": 0.7475891207376164,
+    "pr_auc_sd": 0.0376786064015779,
+    "pr_auc_folds": "0.7182;0.7152;0.7282;0.7810;0.7953",
+    "roc_auc_mean": 0.921998599629942,
+    "roc_auc_sd": 0.0163845552962284,
+    "oof_pr_auc": 0.7463815759624266,
+    "oof_roc_auc": 0.9216608522302516,
+    "n_tied_on_primary": 1
+  },
+  "threshold_selected": {
+    "threshold": 0.625,
+    "mcc": 0.6178807558159559,
+    "f1": 0.6720233747260774,
+    "precision": 0.7087827426810478,
+    "recall_sensitivity": 0.6388888888888888,
+    "specificity": 0.9529030650386244,
+    "balanced_accuracy": 0.7958959769637566,
+    "tn": 3824,
+    "fp": 189,
+    "fn": 260,
+    "tp": 460
+  },
+  "sensitivity_f1_optimal": {
+    "threshold": 0.39,
+    "mcc": 0.6172653935536756,
+    "f1": 0.6773794808405439,
+    "precision": 0.6102449888641426,
+    "recall_sensitivity": 0.7611111111111111,
+    "specificity": 0.9127834537752305,
+    "balanced_accuracy": 0.8369472824431707,
+    "tn": 3663,
+    "fp": 350,
+    "fn": 172,
+    "tp": 548
+  },
+  "sensitivity_youden_j": {
+    "threshold": 0.162775918841362,
+    "mcc": 0.5646231218108027,
+    "f1": 0.6212424849699398,
+    "precision": 0.48589341692789967,
+    "recall_sensitivity": 0.8611111111111112,
+    "specificity": 0.8365312733615748,
+    "balanced_accuracy": 0.848821192236343,
+    "tn": 3357,
+    "fp": 656,
+    "fn": 100,
+    "tp": 620
+  },
+  "prevalence_development": 0.1521233889710543,
+  "n_development": 4733,
+  "note": "all figures computed on development out-of-fold predictions only; the frozen test set has not been loaded or scored"
+}

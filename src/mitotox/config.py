@@ -1,0 +1,68 @@
+"""Single source of truth for every constant in the pipeline.
+
+Anything that would otherwise be duplicated across scripts lives here so the
+numbers cannot drift. Imported by features.py, interpretation.py and the
+scripts/ entry points.
+"""
+from pathlib import Path
+
+# ---------------------------------------------------------------- paths
+ROOT = Path(__file__).resolve().parents[2]
+DATA_RAW = ROOT / "data" / "external"
+DATA_PROCESSED = ROOT / "data" / "processed"
+RESULTS = ROOT / "results"
+TABLES = RESULTS / "tables"
+FIGURES = RESULTS / "figures"
+
+TRAINING_CSV = DATA_PROCESSED / "tox21_mmp_training.csv"
+
+# ---------------------------------------------------------------- reproducibility
+RANDOM_SEED = 42
+
+# ---------------------------------------------------------------- fingerprints
+# Morgan / ECFP-like circular fingerprint.
+#   radius 2  -> ECFP4 equivalent; the standard QSAR default. Radius 3 doubles
+#                the substructure vocabulary without usually improving small
+#                datasets, and makes bit interpretation harder.
+#   2048 bits -> collision rate is low for drug-sized molecules while keeping
+#                the matrix small enough to model on 5,938 compounds.
+#   binary    -> presence/absence, not counts. Counts add scale sensitivity that
+#                tree models do not need and logistic regression handles badly
+#                without extra scaling.
+#   chirality -> ON, because the curated set deliberately keeps stereoisomers as
+#                separate compounds (full InChIKey grouping). Ignoring chirality
+#                here would give two distinct compounds identical features.
+MORGAN_RADIUS = 2
+MORGAN_NBITS = 2048
+MORGAN_BINARY = True
+MORGAN_USE_CHIRALITY = True
+
+# MACCS: 167 predefined structural keys (index 0 is unused by RDKit).
+MACCS_NBITS = 167
+
+# ---------------------------------------------------------------- split grouping
+# Analogue grouping for the train/test split. Locked at Checkpoint 3A.
+# Bemis-Murcko was rejected on evidence: 1,167 compounds share the scaffold
+# 'c1ccccc1' (19.7% of the dataset) and 1,458 are acyclic with no scaffold at
+# all, which made StratifiedGroupKFold degenerate (a 34-compound test set).
+SPLIT_GROUPING = "butina"
+BUTINA_CUTOFF = 0.30          # DISTANCE; 0.30 == Tanimoto similarity 0.70
+N_OUTER_FOLDS = 5             # fold 0 becomes the frozen test set
+N_CV_FOLDS = 5                # cross-validation within the development set
+
+# ---------------------------------------------------------------- descriptors
+# Exactly the six named in the project brief. No more: every extra descriptor is
+# another dimension on a 5,938-row dataset and another thing to justify.
+DESCRIPTORS = [
+    ("MolWt", "Average molecular weight (Da)"),
+    ("MolLogP", "Wildman-Crippen octanol/water partition coefficient (logP)"),
+    ("TPSA", "Topological polar surface area (A^2), Ertl method"),
+    ("NumHDonors", "Lipinski hydrogen-bond donor count"),
+    ("NumHAcceptors", "Lipinski hydrogen-bond acceptor count"),
+    ("NumRotatableBonds", "Number of rotatable bonds (RDKit strict definition)"),
+]
+
+# ---------------------------------------------------------------- feature policy
+# Structural alerts are POST-HOC INTERPRETATION ONLY. They are never
+# concatenated into the model feature matrix. See interpretation.py.
+ALERTS_ARE_MODEL_FEATURES = False

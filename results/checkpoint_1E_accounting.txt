@@ -1,0 +1,58 @@
+==============================================================================
+CHECKPOINT 1E - DATASET ACCOUNTING
+==============================================================================
+
+SAMPLE (SID) LEDGER
+  raw Tox21 samples in AID 720637            :  10486
+  samples with no CID and no SMILES          :    149  (kept in observations file)
+  samples mapping to a CID                   :  10337
+
+COMPOUND (CID) LEDGER  -- must reconcile to 8099
+  unique CIDs                                :   8099
+  - CID-level conflicts (Active & Inactive)                  :     44
+  - inconclusive-only CIDs                                   :   1688
+  - consistent CIDs absorbed into a CID-level-conflicted parent :      3
+  - consistent CIDs in a NEW parent-level conflict           :     42
+  - consistent CIDs with an unparseable parent               :      7
+  - consistent CIDs with an inorganic parent                 :     72
+  = final POSITIVE CIDs                                      :    939
+  = final NEGATIVE CIDs                                      :   5304
+  RECONCILIATION total                                       :   8099
+  matches 8099?                                              : YES
+
+PARENT-STRUCTURE LEDGER
+  unique parent structures (full InChIKey)   :   7575
+  - conflicted, inherited from CID level                     :     44
+  - conflicted, created by the parent collapse               :     15
+  - inconclusive only                                        :   1527
+  - unparseable parent structure                             :      1
+  - inorganic / carbon-free parent                           :     50
+  = FINAL TRAINING parents, label 1                          :    898
+  = FINAL TRAINING parents, label 0                          :   5040
+  RECONCILIATION total                                       :   7575
+  matches parent count?                                      : YES
+
+FINAL TRAINING SET
+  parents (modelling units)                  :   5938
+  positives (label 1)                        :    898
+  negatives (label 0)                        :   5040
+  prevalence                                 :  15.12%
+  underlying CIDs                            :   6346
+  underlying SIDs                            :   8295
+
+STRUCTURE QUALITY OF THE FINAL TRAINING SET
+  parents whose SMILES re-parses in RDKit    :   5938 / 5938
+  flag_metal_removed                         :    304  (pos 21 / neg 283)
+  flag_true_mixture                          :    213  (pos 28 / neg 185)
+  flag_inorganic_parent                      :      0  (pos 0 / neg 0)
+  flag_parent_unparseable                    :      0  (pos 0 / neg 0)
+  any structure-quality flag                 :    481
+
+EXCLUDED TABLE
+  parents                                    :   1637
+    inconclusive_only                        :   1527
+    inorganic_parent                         :     50
+    conflict_cid_level                       :     44
+    conflict_parent_level                    :     15
+    parent_unparseable                       :      1
+  none of these rows carries a label column.

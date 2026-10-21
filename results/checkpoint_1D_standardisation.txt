@@ -1,0 +1,229 @@
+CID-level input (Rule 1 applied): 8099 compounds
+  {'inactive_consistent': 5405, 'inconclusive_only': 1688, 'active_consistent': 962, 'conflicted': 44}
+
+==============================================================================
+PHASE A. DIAGNOSTICS ON THE DEPOSITOR SMILES (no transformation applied)
+==============================================================================
+parseable by RDKit                : 8099 / 8099
+parse + sanitise cleanly          : 8099 / 8099
+FAILED                            : 0
+
+--- disconnected components ---
+component-count distribution: {1: 6340, 2: 1349, 3: 301, 4: 41, 5: 40, 6: 8, 7: 5, 8: 2, 9: 6, 10: 1, 11: 2, 12: 2, 13: 1, 41: 1}
+multi-component structures        : 1759 (21.7%)
+  ... where 2+ components are organic and >=5 heavy atoms : 336
+      ^ these are TRUE MIXTURES / co-crystals, not simple salts;
+        taking the largest fragment discards a real chemical entity.
+  ... where the two largest fragments tie on heavy-atom count: 141
+
+  examples of multi-organic-component structures (first 8):
+    CID 101587     C[N+]1(CCN(CC1)CC(C2CCCCC2)(C3=CC=CC=C3)O)C.COS(=O)(=O)[O-]
+    CID 102821     CCCCC(CC)C(=O)[O-].CCCCC(CC)C(=O)[O-].[Ba+2]
+    CID 10411334   CCCCCCN1C=C[N+](=C1)C.C(F)(F)(F)S(=O)(=O)[N-]S(=O)(=O)C(F)(F)F
+    CID 10636633   CCN1C=C[N+](=C1)C.CC1=CC=C(C=C1)S(=O)(=O)[O-]
+    CID 10660      CN1C2=C(C(=O)N(C1=O)C)NC(=N2)Cl.CN(C)CCOC(C1=CC=CC=C1)C2=CC=CC=C2
+    CID 107882     CN1CCC2=C3[C@H]1CC4=C(C3=CC=C2)C(=C(C=C4)O)O.CN1CCC2=C3[C@H]1CC4=C(C3=CC=C2)C(=C(C=C4)O)O.O.Cl.
+    CID 11048104   CCCC[N+]1(CCCC1)C.C(F)(F)(F)S(=O)(=O)[N-]S(=O)(=O)C(F)(F)F
+    CID 11159638   CCN1C=C[N+](=C1)C.C(=[N-])=NC#N
+
+--- charges ---
+structures with >=1 charged atom  : 1256 (15.5%)
+net formal charge distribution    : {-2: 2, -1: 3, 0: 8083, 1: 9, 2: 2}
+net charge != 0                   : 16
+charged but net charge == 0 (zwitterion / balanced salt): 1240
+
+--- metals and elements ---
+structures containing a metal     : 564
+structures with NO carbon (inorganic): 97
+    CID 1004       OP(=O)(O)O                   O.P
+    CID 10329304   [Cl-].[Cl-].[Fe+2]           Cl.Fe
+    CID 108005     O.O.[O-][Cr](=O)(=O)O[Cr](=O Cr.Na.O
+    CID 1091       O[Se](=O)O                   O.Se
+    CID 1118       OS(=O)(=O)O                  O.S
+    CID 11402127   [N+](=O)(O)[O-].[N+](=O)(O)[ Cd.N.O
+    CID 14776      O=[Bi]O[Bi]=O                Bi.O
+    CID 14782      O=[Cd]                       Cd.O
+    CID 14802      O=[Mo](=O)=O                 Mo.O
+    CID 14888      [O-2].[O-2].[O-2].[As+3].[As As.O
+
+--- stereochemistry ---
+structures with >=1 stereocentre  : 2752
+  total stereocentres             : 9282
+  with >=1 UNASSIGNED stereocentre: 1510
+structures with double-bond stereo: 627
+
+==============================================================================
+PHASE B. STANDARDISATION
+==============================================================================
+Pipeline, in order. Every step is RDKit rdMolStandardize; nothing bespoke.
+  1. MolFromSmiles + sanitise
+  2. Normalizer()            functional-group normalisation (e.g. nitro forms)
+  3. MetalDisconnector()     break covalent metal-ligand bonds into ions
+  4. LargestFragmentChooser(preferOrganic=True)   keep the parent fragment
+  5a. -> parent_charged      canonical isomeric SMILES + InChIKey
+  5b. Uncharger() -> parent_neutral   canonical isomeric SMILES + InChIKey
+  isomericSmiles=True throughout: stereochemistry is never stripped.
+
+standardised successfully         : 8099 / 8099
+failed                            : 0
+
+CIDs affected by each step:
+  metal disconnection changed the molecule : 36
+  largest-fragment choice changed it       : 1780
+  Uncharger changed it                     : 518
+  any change vs depositor SMILES           : 7237
+
+Residual net charge AFTER Uncharger (permanently charged species):
+  {-2: 2, -1: 4, 0: 7721, 1: 330, 2: 32, 3: 8, 6: 1, 7: 1}
+  CIDs still charged after uncharging: 378  (quaternary N, N-oxides etc.)
+    CID 10044526   charge +1  CCCCCCCCCCn1cc[n+](C)c1
+    CID 101587     charge +1  C[N+]1(C)CCN(CC(O)(c2ccccc2)C2CCCCC2)CC1
+    CID 10250129   charge +1  CCCCCCCCCCCCn1cc[n+](C)c1
+    CID 10329304   charge +2  [Fe+2]
+    CID 10411334   charge +1  CCCCCCn1cc[n+](C)c1
+    CID 104827     charge +1  CN(C)c1ccc2nc3ccc(=[N+](C)C)cc-3sc2c1
+    CID 10560335   charge +1  C[n+]1ccn(Cc2ccccc2)c1
+    CID 10636633   charge +1  CCn1cc[n+](C)c1
+
+Stereochemistry retention check:
+  CIDs with assigned stereocentres in depositor SMILES : 1423
+  CIDs whose parent_neutral SMILES still contains '@'  : 1414
+  CIDs with double-bond stereo / retained in parent    : 579 / 627
+  InChIKeys with a non-standard-stereo second block    : 1822
+
+==============================================================================
+PHASE C. PARENT GROUPING AND SECOND CONFLICT ANALYSIS
+==============================================================================
+parent_neutral   -> 7575 distinct full InChIKeys from 8099 CIDs (collapse of 524)
+parent_charged   -> 7689 distinct full InChIKeys from 8099 CIDs (collapse of 410)
+
+connectivity-only check (InChIKey first block, stereo ignored):
+  7445 skeletons -- the 130 extra groups under the full key are stereoisomer pairs
+  (reported for information only; the FULL InChIKey is the grouping key,
+   so stereoisomers stay separate compounds.)
+
+collapse size distribution (CIDs per parent):
+    1 CID(s):   7245 parents
+    2 CID(s):    256 parents
+    3 CID(s):     35 parents
+    4 CID(s):     13 parents
+    5 CID(s):      7 parents
+    6 CID(s):      9 parents
+    7 CID(s):      4 parents
+    8 CID(s):      2 parents
+    9 CID(s):      1 parents
+   11 CID(s):      1 parents
+   15 CID(s):      1 parents
+   17 CID(s):      1 parents
+
+PARENT-LEVEL STATUS:
+  status                                parents     CIDs
+  --------------------------------------------------------
+  active_consistent                         900      953
+  inactive_consistent                      5089     5483
+  conflicted (new at parent level)           15       50
+  conflicted (inherited)                     44       47
+  inconclusive_only                        1527     1566
+  --------------------------------------------------------
+  TOTAL                                    7575     8099
+
+NEWLY CREATED conflicts (CIDs individually consistent, disagreeing once merged): 15
+   1A : 1I  -> 9 parents
+   1A : 2I  -> 2 parents
+   1A : 3I  -> 2 parents
+   2A : 2I  -> 1 parents
+   5A : 1I  -> 1 parents
+
+Examples of newly conflicted parents (first 10):
+  ATGUVEKSASEFFO-UHFFFAOYSA-N  Nc1ccc(Nc2ccccc2)cc1
+     CID 75146      active_consistent    depositor: C1=CC=C(C=C1)NC2=CC=C(C=C2)N.Cl
+     CID 7564       inactive_consistent  depositor: C1=CC=C(C=C1)NC2=CC=C(C=C2)N
+  DCLKMMFVIGOXQN-UHFFFAOYSA-N  CCCCCCCCCCCCCCCCn1cc[n+](C)c1
+     CID 18506491   active_consistent    depositor: [B-](F)(F)(F)F.CCCCCCCCCCCCCCCCN1C=C[N+](=C1)C
+     CID 2734231    inconclusive_only    depositor: CCCCCCCCCCCCCCCCN1C=C[N+](=C1)C.[Cl-]
+     CID 50878565   inactive_consistent  depositor: CCCCCCCCCCCCCCCCN1C=C[N+](=C1)C.F[P-](F)(F)(F)(F)F
+     CID 60196375   inconclusive_only    depositor: CCCCCCCCCCCCCCCCN1C=C[N+](=C1)C.C(F)(F)(F)S(=O)(=O)[N-]S(=O)
+  FEPBITJSIHRMRT-UHFFFAOYSA-N  O=S(=O)(O)c1ccc(O)cc1
+     CID 4379756    inactive_consistent  depositor: C1=CC(=CC=C1O)S(=O)(=O)[O-].[Na+]
+     CID 4765       active_consistent    depositor: C1=CC(=CC=C1O)S(=O)(=O)O
+  FJLGEFLZQAZZCD-MCBHFWOFSA-N  CC(C)n1c(/C=C/[C@@H](O)C[C@@H](O)CC(=O)O)c(-c2ccc(F)cc2)c2ccccc21
+     CID 23663976   active_consistent    depositor: CC(C)N1C2=CC=CC=C2C(=C1/C=C/[C@H](C[C@H](CC(=O)[O-])O)O)C3=C
+     CID 446155     inactive_consistent  depositor: CC(C)N1C2=CC=CC=C2C(=C1/C=C/[C@H](C[C@H](CC(=O)O)O)O)C3=CC=C
+  HFACYLZERDEVSX-UHFFFAOYSA-N  Nc1ccc(-c2ccc(N)cc2)cc1
+     CID 10754      inactive_consistent  depositor: C1=CC(=CC=C1C2=CC=C(C=C2)N)N.Cl.Cl
+     CID 7111       active_consistent    depositor: C1=CC(=CC=C1C2=CC=C(C=C2)N)N
+  ILQHIGIKULUQFQ-UHFFFAOYSA-N  CCCCCCCCCCCCn1cc[n+](C)c1
+     CID 10250129   active_consistent    depositor: CCCCCCCCCCCCN1C=C[N+](=C1)C.F[P-](F)(F)(F)(F)F
+     CID 16211417   active_consistent    depositor: CCCCCCCCCCCCN1C=C[N+](=C1)C.[I-]
+     CID 16749605   inactive_consistent  depositor: CCCCCCCCCCCCN1C=C[N+](=C1)C.[Br-]
+     CID 23160059   active_consistent    depositor: CCCCCCCCCCCCN1C=C[N+](=C1)C.C(F)(F)(F)S(=O)(=O)[O-]
+     CID 2734227    active_consistent    depositor: CCCCCCCCCCCCN1C=C[N+](=C1)C.[Cl-]
+     CID 46226173   active_consistent    depositor: [B-](F)(F)(F)F.CCCCCCCCCCCCN1C=C[N+](=C1)C
+     CID 53316407   inconclusive_only    depositor: CCCCCCCCCCCCN1C=C[N+](=C1)C.C(F)(F)(F)S(=O)(=O)[N-]S(=O)(=O)
+  LMBWSYZSUOEYSN-UHFFFAOYSA-N  CCN(CC)C(=S)S
+     CID 26633      active_consistent    depositor: CCN(CC)C(=S)[S-].CCN(CC)C(=S)[S-].[Zn+2]
+     CID 517546     inactive_consistent  depositor: CCN(CC)C(=S)[S-].O.O.O.[Na+]
+     CID 533728     inconclusive_only    depositor: CCN(CC)C(=S)[S-].[Na+]
+  MCAHWIHFGHIESP-UHFFFAOYSA-N  O=[Se](O)O
+     CID 1091       active_consistent    depositor: O[Se](=O)O
+     CID 24934      inactive_consistent  depositor: [O-][Se](=O)[O-].[Na+].[Na+]
+  MZGNSEAPZQGJRB-UHFFFAOYSA-N  CN(C)C(=S)S
+     CID 11728      inactive_consistent  depositor: C[NH2+]C.CN(C)C(=S)[S-]
+     CID 26710      inconclusive_only    depositor: CN(C)C(=S)[S-].CN(C)C(=S)[S-].CN(C)C(=S)[S-].[Fe+3]
+     CID 3485262    active_consistent    depositor: CN(C)C(=S)[S-].CN(C)C(=S)[S-].[Zn+2]
+     CID 472181     inconclusive_only    depositor: CN(C)C(=S)[S-].CN(C)C(=S)[S-].[Cu+2]
+     CID 560256     inactive_consistent  depositor: CN(C)C(=S)[S-].[Na+]
+  NNLHWTTWXYBJBQ-UHFFFAOYSA-N  CCCC[n+]1ccc(C)cc1
+     CID 11074101   active_consistent    depositor: CCCC[N+]1=CC=C(C=C1)C.[Cl-]
+     CID 11254899   inconclusive_only    depositor: CCCC[N+]1=CC=C(C=C1)C.F[P-](F)(F)(F)(F)F
+     CID 11492406   inactive_consistent  depositor: [B-](F)(F)(F)F.CCCC[N+]1=CC=C(C=C1)C
+     CID 11995188   inconclusive_only    depositor: CCCC[N+]1=CC=C(C=C1)C.[I-]
+     CID 13487610   active_consistent    depositor: CCCC[N+]1=CC=C(C=C1)C.[Br-]
+     CID 60196392   inactive_consistent  depositor: CCCC[N+]1=CC=C(C=C1)C.C(F)(F)(F)S(=O)(=O)[O-]
+
+Examples of salt / free-parent collapses that did NOT create a conflict (first 8):
+  ABJKWBDEJIDSJZ-UHFFFAOYSA-N  CN(Cc1ccc(C(C)(C)C)cc1)Cc1cccc2ccccc12  [inactive_consistent]
+     CID 2484       CC(C)(C)C1=CC=C(C=C1)CN(C)CC2=CC=CC3=CC=CC=C32
+     CID 443867     CC(C)(C)C1=CC=C(C=C1)CN(C)CC2=CC=CC3=CC=CC=C32.Cl
+  ADFOJJHRTBFFOF-RBRWEJTLSA-N  C[C@]12CC[C@@H]3c4ccc(OC(=O)N(CCCl)CCCl)cc4CC[C@H]3[C@@H]1CC  [inactive_consistent]
+     CID 259329     C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OP(=O)(O)O)CCC4=C3C=CC(=C4)OC(=O)
+     CID 444000     C[C@]12CC[C@H]3[C@H]([C@@H]1CC[C@@H]2OP(=O)([O-])[O-])CCC4=C3C=CC(=C4)
+  AEMRFAOFKBGASW-UHFFFAOYSA-N  O=C(O)CO  [inactive_consistent]
+     CID 72120      C(C(=O)O)O.[NH2-].[NH2-].[Pt+2]
+     CID 757        C(C(=O)O)O
+  AFPHTEQTJZKQAQ-UHFFFAOYSA-N  O=C(O)c1cccc([N+](=O)[O-])c1  [inactive_consistent]
+     CID 70014      C1=CC(=CC(=C1)[N+](=O)[O-])C(=O)[O-].[Na+]
+     CID 8497       C1=CC(=CC(=C1)[N+](=O)[O-])C(=O)O
+  AMKUSFIBHAUBIJ-UHFFFAOYSA-N  CCCCCC[n+]1ccccc1  [inactive_consistent]
+     CID 21917397   CCCCCC[N+]1=CC=CC=C1.[I-]
+     CID 2734172    CCCCCC[N+]1=CC=CC=C1.[Cl-]
+     CID 2734177    CCCCCC[N+]1=CC=CC=C1.F[P-](F)(F)(F)(F)F
+     CID 2734181    [B-](F)(F)(F)F.CCCCCC[N+]1=CC=CC=C1
+     CID 2734239    CCCCCC[N+]1=CC=CC=C1.[Br-]
+     CID 2734249    CCCCCC[N+]1=CC=CC=C1.C(F)(F)(F)S(=O)(=O)[O-]
+  APRRQJCCBSJQOQ-UHFFFAOYSA-N  Nc1cc(S(=O)(=O)O)cc2cc(S(=O)(=O)O)cc(O)c12  [inactive_consistent]
+     CID 23664361   C1=C2C=C(C=C(C2=C(C=C1S(=O)(=O)[O-])N)O)S(=O)(=O)O.[Na+]
+     CID 60196419   C1=C2C=C(C=C(C2=C(C=C1S(=O)(=O)[O-])N)O)S(=O)(=O)O.O.[Na+]
+  AUYYCJSJGJYCDS-LBPRGKRZSA-N  N[C@@H](Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)O  [active_consistent]
+     CID 23666110   C1=CC(=C(C=C1OC2=C(C=C(C=C2I)C[C@@H](C(=O)[O-])N)I)I)O.[Na+]
+     CID 5920       C1=CC(=C(C=C1OC2=C(C=C(C=C2I)C[C@@H](C(=O)O)N)I)I)O
+  AVKUERGKIZMTKX-NJBDSQKTSA-N  CC1(C)S[C@@H]2[C@H](NC(=O)[C@H](N)c3ccccc3)C(=O)N2[C@H]1C(=O  [inactive_consistent]
+     CID 23565      CC1([C@@H](N2[C@H](S1)[C@@H](C2=O)NC(=O)[C@@H](C3=CC=CC=C3)N)C(=O)O)C.
+     CID 6249       CC1([C@@H](N2[C@H](S1)[C@@H](C2=O)NC(=O)[C@@H](C3=CC=CC=C3)N)C(=O)O)C
+
+CANDIDATE COUNTS AFTER PARENT-LEVEL ANALYSIS (provisional, pending approval):
+  candidate positives (parent active_consistent)   : 900
+  candidate negatives (parent inactive_consistent) : 5089
+  excluded - conflicted (new)                      : 15
+  excluded - conflicted (inherited from CID level)  : 44
+  excluded - inconclusive only                     : 1527
+  candidate training set                           : 5989  (prevalence 15.03%)
+
+==============================================================================
+PHASE D. STRUCTURE-QUALITY FLAGS ON THE STANDARDISED PARENT
+==============================================================================
+parent SMILES fails to re-parse      : 6 CIDs (1 distinct parents)
+    'c1cccc1' x 6
+parent parses but has NO carbon      : 97 CIDs (60 distinct parents)
+metal present in depositor, absent from parent : 495 CIDs
+depositor was a true multi-organic mixture     : 336 CIDs
