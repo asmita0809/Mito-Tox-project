@@ -1,0 +1,81 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  # The documented environment: exact pins from requirements.txt, the versions
+  # every number in README.md was produced with. This job also loads the frozen
+  # model pickle, which is version-sensitive by nature.
+  pinned:
+    name: pinned environment (python 3.10)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Standardisation contract
+        # Re-derives all 8,099 stored parent structures from their depositor
+        # SMILES and asserts an exact match, so the prediction path cannot
+        # silently drift from the training path.
+        run: python tests/test_standardization.py
+
+      - name: SMARTS alert controls
+        # Each structural alert must match a reference molecule that is an
+        # example of it, and must not fire on the negative controls.
+        run: python tests/test_structural_alerts.py
+
+      - name: Downloader pagination
+        # The real downloader against a local mock API with known counts,
+        # including a negative control that truncation is detected.
+        run: python tests/test_download_pagination.py
+
+      - name: Frozen model loads and predicts
+        run: |
+          python scripts/predict.py --input examples/example_input.csv \
+                                    --name-column name
+
+  # Newer interpreters with unpinned dependencies. The model pickle is
+  # deliberately NOT loaded here: a scikit-learn major version can refuse an
+  # older pickle, which is a packaging fact rather than a failure of this code.
+  unpinned:
+    name: unpinned install (python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Package imports
+        run: |
+          python -c "from mitotox import config, features, splits, models; \
+                     from mitotox.standardize import standardize; \
+                     from mitotox.interpretation import compile_alerts; \
+                     compile_alerts(); \
+                     r = standardize('CC(C)(C)c1cc(C)cc(C(C)(C)C)c1O'); \
+                     assert r['ok'] and r['inchikey'], r; \
+                     print('package imports and standardises:', r['parent_smiles'])"
+
+      - name: Standardisation contract
+        run: python tests/test_standardization.py
+
+      - name: SMARTS alert controls
+        run: python tests/test_structural_alerts.py

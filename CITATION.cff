@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+title: >-
+  Mitochondrial toxicity prediction from molecular structure:
+  a QSAR classifier for mitochondrial membrane potential disruption
+message: If you use this software or its curated dataset, please cite it.
+type: software
+authors:
+  - family-names: Saha
+    given-names: Asmita
+abstract: >-
+  A gradient-boosted QSAR classifier for mitochondrial membrane potential
+  disruption, trained on 5,938 compounds curated from the Tox21 qHTS screen
+  (PubChem AID 720637) and evaluated once on a frozen, analogue-disjoint test
+  set of 1,205 compounds (PR-AUC 0.709, ROC-AUC 0.926). The repository
+  documents the curation decisions in full, including a provenance analysis
+  showing that 93% of the MitoTox database's membrane-potential records derive
+  from a single Tox21 follow-up study and therefore do not constitute an
+  independent data source.
+keywords:
+  - QSAR
+  - cheminformatics
+  - computational toxicology
+  - mitochondrial toxicity
+  - Tox21
+  - food additives
+  - RDKit
+  - machine learning
+license: MIT
+version: 1.0.0
+date-released: "2026-10-21"
+references:
+  - type: article
+    title: >-
+      Profiling of the Tox21 Chemical Collection for Mitochondrial Function to
+      Identify Compounds that Acutely Decrease Mitochondrial Membrane Potential
+    authors:
+      - family-names: Attene-Ramos
+        given-names: Matias S.
+    journal: Environmental Health Perspectives
+    year: 2015
+    doi: 10.1289/ehp.1408642
+  - type: article
+    title: >-
+      Comprehensive Analyses and Prioritization of Tox21 10K Chemicals Affecting
+      Mitochondrial Function by in-Depth Mechanistic Studies
+    authors:
+      - family-names: Xia
+        given-names: Menghang
+    journal: Environmental Health Perspectives
+    year: 2018
+    doi: 10.1289/EHP2589
