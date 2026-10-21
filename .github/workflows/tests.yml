@@ -34,6 +34,12 @@ jobs:
         # example of it, and must not fire on the negative controls.
         run: python tests/test_structural_alerts.py
 
+      - name: Union-list parser fixture
+        # Regulation 1333/2008 Part A contains a lookalike E-number table that
+        # is not the Union list; both failure modes still produce a plausible
+        # CSV, so they are asserted against rather than eyeballed.
+        run: python tests/test_efsa_parser.py
+
       - name: Downloader pagination
         # The real downloader against a local mock API with known counts,
         # including a negative control that truncation is detected.
@@ -79,3 +85,6 @@ jobs:
 
       - name: SMARTS alert controls
         run: python tests/test_structural_alerts.py
+
+      - name: Union-list parser fixture
+        run: python tests/test_efsa_parser.py
