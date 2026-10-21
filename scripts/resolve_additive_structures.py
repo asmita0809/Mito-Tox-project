@@ -74,6 +74,42 @@ def e_variants(e):
     return ["E%s" % digits.upper(), "E %s" % digits.upper()]
 
 
+def name_variants(name):
+    """Spellings of an additive name worth asking PubChem about.
+
+    Splitting a chemical name on every comma destroys locants: "Propane-1,
+    2-diol (propylene glycol)" becomes "Propane-1" and "2-diol (...)", neither
+    of which is a chemical. So a comma is a separator only when it is NOT
+    followed by a digit, and the full name and any parenthetical synonym are
+    always tried as well.
+    """
+    name = str(name).strip()
+    out = []
+
+    def add(s):
+        s = s.strip(" .;,")
+        if s and s.lower() not in {v.lower() for v in out}:
+            out.append(s)
+
+    # "Propane-1, 2-diol" -> also "Propane-1,2-diol"
+    tightened = re.sub(r",\s+(?=\d)", ",", name)
+    add(name)
+    if tightened != name:
+        add(tightened)
+
+    # parenthetical synonyms: "Glyceryl diacetate (diacetin)" -> "diacetin"
+    for inner in re.findall(r"\(([^()]+)\)", name):
+        if len(inner) > 2 and not re.fullmatch(r"[\d\s,.\-+()LDl]+", inner):
+            add(inner)
+    stripped = re.sub(r"\s*\([^()]*\)", "", tightened).strip()
+    add(stripped)
+
+    # separators, but never a locant comma
+    for part in re.split(r"[;/]|,(?!\s*\d)", stripped):
+        add(part)
+    return out
+
+
 class Pug:
     def __init__(self):
         self.s = requests.Session()
@@ -139,7 +175,7 @@ def resolve_one(pug, e_number, name):
            "molecular_weight": None, "resolution_method": "", "n_candidates": 0,
            "validated": False, "validation_evidence": "", "reason": ""}
 
-    name_parts = [p.strip() for p in re.split(r"[,;]", str(name)) if p.strip()]
+    name_parts = name_variants(name)
     queries = [("e_number", v) for v in e_variants(e_number)]
     queries += [("name", p) for p in name_parts]
 
@@ -190,6 +226,9 @@ def main():
     ap.add_argument("--input", default=IN_CSV)
     ap.add_argument("--output", default=OUT_CSV)
     ap.add_argument("--limit", type=int, default=0, help="resolve only the first N (for a trial run)")
+    ap.add_argument("--retry-failed", action="store_true",
+                    help="re-query additives that previously failed to resolve "
+                         "(validated hits stay cached and are not re-fetched)")
     args = ap.parse_args()
 
     import csv
@@ -217,9 +256,12 @@ def main():
     for i, row in enumerate(rows, 1):
         e, name = row["e_number"], row["name"]
         cpath = os.path.join(CACHE, "%s.json" % re.sub(r"[^A-Za-z0-9]", "_", e))
+        rec = None
         if os.path.exists(cpath):
             rec = json.load(open(cpath, encoding="utf-8"))
-        else:
+            if args.retry_failed and not rec.get("validated"):
+                rec = None
+        if rec is None:
             rec = resolve_one(pug, e, name)
             rec["_retrieved_utc"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
             with open(cpath, "w", encoding="utf-8") as fh:

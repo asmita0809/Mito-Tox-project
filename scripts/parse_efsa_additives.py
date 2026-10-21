@@ -43,10 +43,13 @@ OUT_CSV = os.path.join("data", "external", "efsa_additives_union_list.csv")
 
 # "E 100", "E 150a", "E 160b(i)", "E 1521"
 E_RE = re.compile(r"^E\s*(\d{3,4})\s*([a-z])?\s*(\((?:i|ii|iii|iv|v|vi)\))?$", re.I)
+# The group headings are split across two cells in the source: a line "1." and
+# then a line "Colours". Match the heading word on its own as well as the
+# joined form, so the parse does not depend on how the renderer breaks cells.
 GROUPS = [
-    (re.compile(r"^1\.?\s+Colours\b", re.I), "colour"),
-    (re.compile(r"^2\.?\s+Sweeteners\b", re.I), "sweetener"),
-    (re.compile(r"^3\.?\s+Additives other than colours and sweeteners\b", re.I), "other"),
+    (re.compile(r"^(?:1\.?\s+)?Colours$", re.I), "colour"),
+    (re.compile(r"^(?:2\.?\s+)?Sweeteners$", re.I), "sweetener"),
+    (re.compile(r"^(?:3\.?\s+)?Additives other than colours and sweeteners$", re.I), "other"),
 ]
 SKIP_EXACT = {"e-number", "name", "e number"}
 
