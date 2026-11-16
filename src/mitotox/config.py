@@ -16,6 +16,26 @@ FIGURES = RESULTS / "figures"
 
 TRAINING_CSV = DATA_PROCESSED / "tox21_mmp_training.csv"
 
+# Named artefacts, so that a script and the file it reads cannot drift apart.
+# These paths were previously spelled out as string literals in three scripts,
+# and when the outputs were reorganised into results/tables/ the literals were
+# not updated: final_test_eval.py, select_model.py and train_models.py then
+# pointed at files that did not exist, so the documented run order failed on a
+# clean checkout. Every path below now has exactly one definition.
+SPLITS_CSV = DATA_PROCESSED / "splits.csv"
+DESCRIPTORS_CSV = DATA_PROCESSED / "features_descriptors.csv"
+MORGAN_NPZ = DATA_PROCESSED / "features_morgan.npz"
+MACCS_NPZ = DATA_PROCESSED / "features_maccs.npz"
+TEST_NN_SIMILARITY_CSV = DATA_PROCESSED / "test_nn_similarity.csv"
+OOF_PREDICTIONS_NPZ = DATA_PROCESSED / "oof_predictions_dev.npz"
+
+CV_RESULTS_CSV = TABLES / "cv_results.csv"
+CV_RESULTS_RANKED_CSV = TABLES / "cv_results_ranked.csv"
+TEST_PREDICTIONS_CSV = TABLES / "test_predictions.csv"
+TEST_BY_PROXIMITY_CSV = TABLES / "test_performance_by_proximity.csv"
+MODEL_SELECTION_JSON = RESULTS / "model_selection.json"
+FINAL_TEST_RESULTS_JSON = RESULTS / "final_test_results.json"
+
 # ---------------------------------------------------------------- reproducibility
 RANDOM_SEED = 42
 

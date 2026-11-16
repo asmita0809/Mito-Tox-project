@@ -1,0 +1,121 @@
+======================================================================
+REPRODUCTION CHECK
+run 16 November 2026
+======================================================================
+
+WHAT WAS CHECKED
+
+Re-running the two scoring stages of the pipeline from the committed
+inputs, in two different software environments, and comparing every
+output file byte for byte against the files committed in this
+repository.
+
+    python scripts/select_model.py        # selection + thresholds
+    python scripts/final_test_eval.py     # refit + frozen test scoring
+
+Neither script re-runs the 108-configuration search (540 fits); both
+read the stored development out-of-fold predictions, which are
+committed as data/processed/oof_predictions_dev.npz. final_test_eval.py
+refits the single frozen configuration on the 4,733 development
+compounds and scores the 1,205 frozen test compounds once.
+
+Nothing was re-tuned, re-selected or re-thresholded. The frozen
+configuration and the three thresholds were fixed at Checkpoint 3C and
+are read from results/model_selection.json.
+
+
+ENVIRONMENT A - the pinned environment (requirements.txt)
+
+    Python        3.10.12
+    numpy         2.2.6
+    pandas        2.3.3
+    scipy         1.15.3
+    scikit-learn  1.7.2
+    xgboost       3.2.0
+    rdkit         2026.03.5
+
+RESULT: all five output files reproduce BYTE-IDENTICALLY.
+
+    results/model_selection.json                  identical
+    results/tables/cv_results_ranked.csv          identical
+    results/final_test_results.json               identical
+    results/tables/test_predictions.csv           identical
+    results/tables/test_performance_by_proximity.csv   identical
+
+
+ENVIRONMENT B - a newer environment, nothing pinned
+
+    Python        3.13.16
+    numpy         2.5.3
+    pandas        3.0.5
+    scipy         1.18.1
+    scikit-learn  1.9.1
+    xgboost       3.4.1
+
+RESULT: the selection stage reproduces identically; the refit does not.
+
+    results/model_selection.json                  identical
+    results/tables/cv_results_ranked.csv          identical
+    results/final_test_results.json               DIFFERS
+    results/tables/test_predictions.csv           DIFFERS
+    results/tables/test_performance_by_proximity.csv   DIFFERS
+
+Frozen-test metrics, environment A vs environment B:
+
+    metric                      A (pinned)   B (newer)    delta
+    PR-AUC (primary)            0.7090       0.6825       -0.0266
+    ROC-AUC                     0.9259       0.9181       -0.0078
+    MCC at p >= 0.625           0.6117       0.5764       -0.0353
+    sensitivity at p >= 0.625   0.6292       0.6067       -0.0225
+    specificity at p >= 0.625   0.9542       0.9474       -0.0068
+    confusion matrix tn/fp/fn/tp  980/47/66/112   973/54/70/108
+
+Per-compound, across the 1,205 frozen test compounds:
+
+    identical predicted probabilities      0 of 1205
+    median absolute difference             0.0070
+    95th percentile absolute difference    0.1424
+    maximum absolute difference            0.3696
+    compounds changing class at p >= 0.625    35
+
+
+WHAT THIS MEANS, AND WHAT IT DOES NOT
+
+The difference is attributable to XGBoost, not to this code. The
+selection stage consumes only stored out-of-fold predictions and
+scikit-learn metric functions, and it reproduces exactly in both
+environments. The stage that differs is the one that fits an
+XGBClassifier, and the two environments differ by an XGBoost minor
+version (3.2.0 vs 3.4.1). Gradient-boosted tree construction is not
+guaranteed to be bit-stable across versions: histogram binning,
+tie-breaking among equally-scoring splits and floating-point
+accumulation order can all change.
+
+So the exact digits in this README are reproducible WITH THE PINS, and
+not otherwise. requirements.txt is a requirement, not a convenience.
+
+The scientific conclusion is more robust than the digits. The -0.0266
+shift in PR-AUC is small relative to the bootstrap 95% confidence
+interval on that same number, [0.638, 0.775], a width of 0.137. Both
+environments put the model far above the 0.148 no-skill baseline set by
+class prevalence, both reproduce the ranking of the 108 candidate
+configurations identically, and both support the same statement: the
+model carries real signal on an analogue-disjoint test set, with
+sensitivity around 0.6 at high specificity.
+
+What would NOT be legitimate is quoting 0.709 as if it were a property
+of the method rather than of the method plus this exact dependency set.
+The number is reported here with its environment attached.
+
+
+A PREVIOUS CLAIM IN THIS README WAS WRONG
+
+An earlier version of this README stated that every result had been
+regenerated on a second machine with different Python and scikit-learn
+versions and reproduced bit-identically. That claim did not survive
+being checked. It is possible that the two environments compared at the
+time shared an XGBoost version, which would make the original
+observation correct but the generalisation unwarranted; the records that
+would settle it no longer exist. Either way the sentence asserted more
+than the evidence supported, and it has been replaced by this file and
+by the measured figures above.

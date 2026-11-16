@@ -19,6 +19,8 @@ FROZEN CONFIGURATION (unchanged from Checkpoint 3C):
     sensitivity        0.163   (Youden-J on development OOF)
 """
 import json
+import os
+import sys
 import warnings
 
 import numpy as np
@@ -33,9 +35,8 @@ from xgboost import XGBClassifier
 
 warnings.filterwarnings("ignore")
 
-DATA = "data/processed"
-UP = "data/processed"
-OUT = "results"
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
+from mitotox import config
 SEED = 42
 BOOTSTRAP_SEED = 20260910          # recorded; fixed before any test metric was seen
 N_BOOTSTRAP = 2000
@@ -50,10 +51,10 @@ DESC_COLS = ["MolWt", "MolLogP", "TPSA", "NumHDonors", "NumHAcceptors",
 notes = []
 
 # ------------------------------------------------------------------ load
-train = pd.read_csv(f"{DATA}/tox21_mmp_training.csv")
-splits = pd.read_csv(f"{DATA}/splits.csv")
-desc = pd.read_csv(f"{DATA}/features_descriptors.csv")
-mor = np.load(f"{DATA}/features_morgan.npz", allow_pickle=True)
+train = pd.read_csv(config.TRAINING_CSV)
+splits = pd.read_csv(config.SPLITS_CSV)
+desc = pd.read_csv(config.DESCRIPTORS_CSV)
+mor = np.load(config.MORGAN_NPZ, allow_pickle=True)
 
 keys = train.parent_inchikey.values
 assert list(desc.parent_inchikey) == list(keys)
@@ -151,8 +152,8 @@ ci = {k: {"lo": float(np.percentile(v, 2.5)), "hi": float(np.percentile(v, 97.5)
           "mean": float(np.mean(v))} for k, v in acc.items() if v}
 
 # ------------------------------------------------------------------ gap
-cvres = pd.read_csv(f"{OUT}/cv_results_ranked.csv")
-sel = json.load(open(f"{OUT}/model_selection.json"))
+cvres = pd.read_csv(config.CV_RESULTS_RANKED_CSV)
+sel = json.load(open(config.MODEL_SELECTION_JSON))
 win = cvres[cvres.config == sel["winner"]["config"]].iloc[0]
 gap = {
     "cv_pr_auc_mean": float(win.pr_auc_mean), "cv_pr_auc_sd": float(win.pr_auc_sd),
@@ -167,7 +168,7 @@ gap = {
 }
 
 # ------------------------------------------------------------------ per-compound
-nn = pd.read_csv(f"{UP}/test_nn_similarity.csv")
+nn = pd.read_csv(config.TEST_NN_SIMILARITY_CSV)
 pred = pd.DataFrame({"parent_inchikey": keys[is_test], "label": y_test,
                      "predicted_probability": p_test})
 for k, t in THRESHOLDS.items():
@@ -178,7 +179,7 @@ assert pred.nn_tanimoto.notna().all(), "missing NN similarity for some test comp
 pred = pred.merge(train[["parent_inchikey", "parent_smiles", "pubchem_cids",
                          "flag_metal_removed", "flag_true_mixture"]],
                   on="parent_inchikey", how="left")
-pred.to_csv(f"{OUT}/test_predictions.csv", index=False)
+pred.to_csv(config.TEST_PREDICTIONS_CSV, index=False)
 
 bands = [(0.0, 0.4), (0.4, 0.5), (0.5, 0.6), (0.6, 0.7), (0.7, 1.01)]
 prox = []
@@ -194,7 +195,7 @@ for lo, hi in bands:
             sub.label, (sub.predicted_probability >= 0.625).astype(int)))
     prox.append(row)
 prox_df = pd.DataFrame(prox)
-prox_df.to_csv(f"{OUT}/test_performance_by_proximity.csv", index=False)
+prox_df.to_csv(config.TEST_BY_PROXIMITY_CSV, index=False)
 
 report = {
     "frozen_configuration": {
@@ -212,7 +213,7 @@ report = {
     "performance_by_nn_proximity": prox,
     "implementation_notes": notes,
 }
-with open(f"{OUT}/final_test_results.json", "w") as fh:
+with open(config.FINAL_TEST_RESULTS_JSON, "w") as fh:
     json.dump(report, fh, indent=2)
 print(json.dumps({k: report[k] for k in
                   ["test_results", "generalization_gap"]}, indent=2))

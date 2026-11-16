@@ -11,7 +11,6 @@ Search space is read from models.py and is NOT modified.
 """
 import json
 import os
-import os
 import sys
 import time
 import warnings
@@ -30,17 +29,16 @@ from xgboost import XGBClassifier
 warnings.filterwarnings("ignore")
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
-DATA = "data/processed"
-OUT = "results/tables"
+from mitotox import config
 SEED = 42
 N_CV = 5
 
 # ------------------------------------------------------------------ load
-train = pd.read_csv(f"{DATA}/tox21_mmp_training.csv")
-splits = pd.read_csv(f"{DATA}/splits.csv")
-desc = pd.read_csv(f"{DATA}/features_descriptors.csv")
-mor = np.load(f"{DATA}/features_morgan.npz", allow_pickle=True)
-mac = np.load(f"{DATA}/features_maccs.npz", allow_pickle=True)
+train = pd.read_csv(config.TRAINING_CSV)
+splits = pd.read_csv(config.SPLITS_CSV)
+desc = pd.read_csv(config.DESCRIPTORS_CSV)
+mor = np.load(config.MORGAN_NPZ, allow_pickle=True)
+mac = np.load(config.MACCS_NPZ, allow_pickle=True)
 
 keys = train.parent_inchikey.values
 assert list(desc.parent_inchikey) == list(keys)
@@ -136,7 +134,7 @@ def main():
     folds = list(cv.split(np.zeros(N_DEV), y, groups=groups))
 
     rows, oof_store = [], {}
-    res_path = f"{OUT}/cv_results.csv"
+    res_path = config.CV_RESULTS_CSV
     t0 = time.time()
     done = 0
     total = 0
@@ -184,7 +182,7 @@ def main():
                 })
                 pd.DataFrame(rows).to_csv(res_path, index=False)
 
-    np.savez_compressed(f"{OUT}/oof_predictions.npz",
+    np.savez_compressed(config.OOF_PREDICTIONS_NPZ,
                         y=y, keys=keys[is_dev], groups=groups,
                         **{k: v for k, v in oof_store.items()})
     print(f"DONE {done} fits in {time.time() - t0:.0f}s -> {res_path}", flush=True)

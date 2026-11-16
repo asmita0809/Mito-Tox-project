@@ -15,15 +15,18 @@ Threshold rule (pre-registered, unchanged):
 """
 import json
 import os
+import sys
 
 import numpy as np
 import pandas as pd
 from sklearn.metrics import (confusion_matrix, f1_score, matthews_corrcoef,
                              precision_score, recall_score, roc_curve)
 
-OUT = "results/tables"
-res = pd.read_csv(f"{OUT}/cv_results.csv")
-z = np.load(f"{OUT}/oof_predictions.npz", allow_pickle=True)
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
+from mitotox import config
+
+res = pd.read_csv(config.CV_RESULTS_CSV)
+z = np.load(config.OOF_PREDICTIONS_NPZ, allow_pickle=True)
 y = z["y"]
 
 
@@ -97,8 +100,8 @@ report = {
     "note": ("all figures computed on development out-of-fold predictions only; "
              "the frozen test set has not been loaded or scored"),
 }
-with open(f"{OUT}/model_selection.json", "w") as fh:
+with open(config.MODEL_SELECTION_JSON, "w") as fh:
     json.dump(report, fh, indent=2)
 
-res.to_csv(f"{OUT}/cv_results_ranked.csv", index=False)
+res.to_csv(config.CV_RESULTS_RANKED_CSV, index=False)
 print(json.dumps(report, indent=2))
