@@ -4,6 +4,7 @@ title: >-
   a QSAR classifier for mitochondrial membrane potential disruption
 message: If you use this software or its curated dataset, please cite it.
 type: software
+repository-code: "https://github.com/asmita0809/Mito-Tox-project"
 authors:
   - family-names: Saha
     given-names: Asmita

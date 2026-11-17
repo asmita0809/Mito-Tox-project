@@ -1,3 +1,5 @@
+[![tests](https://github.com/asmita0809/Mito-Tox-project/actions/workflows/tests.yml/badge.svg)](https://github.com/asmita0809/Mito-Tox-project/actions/workflows/tests.yml)
+
 # Mitochondrial toxicity prediction from molecular structure
 
 A QSAR classifier for mitochondrial membrane potential (MMP) disruption, trained on the Tox21
@@ -508,6 +510,8 @@ Three safeguards are built into every prediction.
 ## Reproducing
 
 ```bash
+git clone https://github.com/asmita0809/Mito-Tox-project.git
+cd Mito-Tox-project
 pip install -r requirements.txt
 
 python scripts/download_tox21.py                    # PubChem AID 720637 + 720634
