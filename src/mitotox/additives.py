@@ -31,7 +31,10 @@ These are scope gates on the PREDICTION set only.
 """
 import re
 
-from rdkit import Chem
+# RDKit is imported lazily, inside the one function that needs it. The name
+# classifier and the name key below are pure string work, and the additive
+# resolver uses only those - it runs on a machine with nothing but `requests`
+# installed. Importing Chem at module level would have forced RDKit on it.
 
 SINGLE_SUBSTANCE = "single_substance"
 VARIABLE_COMPOSITION = "polymer_or_variable_composition"
@@ -113,6 +116,7 @@ _COMPILED = None
 def _compiled():
     global _COMPILED
     if _COMPILED is None:
+        from rdkit import Chem
         pats = []
         bad = []
         for s in _INORGANIC_CARBON_SMARTS:
