@@ -127,6 +127,17 @@ matters: the same model scores PR-AUC **0.9997 in-sample** — it reproduces its
 labels almost perfectly, so any threshold picked from in-sample predictions lands far too
 high. The threshold transferred to the frozen test set within 0.006 MCC.
 
+**5. The headline number is a property of the method *and* its dependencies.**
+Re-running the frozen evaluation under a different XGBoost minor version gives test PR-AUC
+**0.6825** instead of 0.7090, and moves 35 of 1,205 compounds across the decision threshold —
+not one of the 1,205 predicted probabilities is identical. The selection stage, which reads
+only stored out-of-fold predictions, reproduces byte-for-byte in both environments, which is
+what localises the cause. The shift is small against the bootstrap 95% CI on that same metric
+([0.638, 0.775], a width of 0.137), so the *conclusion* is stable where the *digits* are not:
+both environments rank all 108 candidate configurations identically and sit far above the
+0.148 no-skill baseline. Quoting 0.709 without naming the environment would overstate what
+was measured. → `results/reproduction_check.txt`
+
 ---
 
 ## The endpoint
