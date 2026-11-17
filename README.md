@@ -5,9 +5,9 @@ Tox21 high-throughput screen and validated on a frozen, analogue-disjoint test s
 
 Built as the modelling foundation for a larger question — *can molecular structure be used
 to prioritise approved food additives for mitochondrial-toxicity testing?* — which is not a
-required endpoint in the FDA Redbook battery. This repository contains the model and its
-validation. The regulatory screening step is documented as the next stage and is **not**
-included here.
+required endpoint in the FDA Redbook battery. This repository contains the model, its
+validation, and a screen of the 339 additives on the EU Union list — with every compound
+that could not be resolved or could not legitimately be scored counted and given a reason.
 
 **Frozen test set (1,205 compounds, never used for any modelling decision):**
 
@@ -85,7 +85,7 @@ structure's PubChem title against its Union-list name
 (`scripts/audit_additive_resolution.py`), and substances that cannot have a single structure
 at all — polymers, gums, modified starches, extracts, plural class names — are excluded by
 name before scoring rather than represented by an arbitrary member
-(`src/mitotox/additives.py`, with 67 controls in `tests/test_additive_gates.py`).
+(`src/mitotox/additives.py`, with 82 controls in `tests/test_additive_gates.py`).
 
 ---
 
@@ -406,10 +406,23 @@ python scripts/build_applicability_reference.py
 python scripts/interpret_model.py                   # SHAP + alert enrichment
 python scripts/make_figures.py
 
+# the EU additive screen (the resolver needs internet; everything else does not)
+python scripts/download_efsa_additives.py           # Regulation (EC) No 1333/2008
+python scripts/parse_efsa_additives.py              # Annex II Part B -> 339 additives
+python scripts/resolve_additive_structures.py       # PubChem, two-evidence validation
+python scripts/audit_additive_resolution.py         # standing title-vs-name tripwire
+python scripts/screen_additives.py                  # scope gates, then score once
+
 python tests/test_standardization.py                # prediction path == training path
 python tests/test_structural_alerts.py              # SMARTS positive/negative controls
+python tests/test_additive_gates.py                 # scope gates, 82 controls
+python tests/test_efsa_parser.py                    # Annex II parsing
 python tests/test_download_pagination.py            # downloader, against a mock API
 ```
+
+`resolve_additive_structures.py` caches PubChem name searches, synonym lists and properties
+on disk, so changing the validation rule and re-deciding costs no network at all. Use
+`--rebuild` after a rule change.
 
 **Reproduction.** Re-running `scripts/select_model.py` and `scripts/final_test_eval.py`
 from the committed inputs, in the pinned environment of `requirements.txt` (Python 3.10.12,
@@ -444,9 +457,11 @@ src/mitotox/
   models.py           pre-registered search space and reporting constraints
   predict.py          the predictor, with applicability domain
   interpretation.py   13 SMARTS alerts (never features)
+  additives.py        scope gates: variable composition, inorganic carbon
 
 scripts/              one entry point per pipeline stage, runnable in the order above
-tests/                standardisation contract, SMARTS controls, downloader
+tests/                standardisation contract, SMARTS controls, scope gates,
+                      Annex II parser, downloader
 data/processed/       curated datasets, features, splits  (committed)
 data/external/        raw API downloads                    (gitignored; see data/README.md)
 results/              checkpoint reports, tables, figures
@@ -477,13 +492,40 @@ examples/             example input and output for predict.py
   may be informed by it.
 - **Predictions are computational prioritisation, not experimental evidence.** Nothing here
   supports a regulatory or safety claim about any compound.
+- **137 of 339 additives could not be resolved to a validated structure**, and 73 more were
+  resolved but excluded as unscoreable. The screen therefore covers 129 additives, not the
+  Union list. Every exclusion is counted with a reason, but a name the resolver cannot
+  confirm is a gap in coverage, not a finding about the substance.
+- **72 of the 129 screened additives are already in the training set.** Their scores are
+  fitted values and are marked as such. Only 57 are genuine out-of-sample predictions, so
+  the screen is a smaller test of the model than its headline count suggests.
+- **The screen recovering the known phenolic antioxidants is not independent validation.**
+  Those compounds are in, or close to, the training chemistry. It is a consistency check,
+  not evidence that the model generalises to novel additive chemistry.
+- **Substances of variable composition are out of scope, not resolved-and-found-safe.**
+  Polymers, gums, modified starches and extracts are excluded because no single structure
+  represents them. The screen says nothing whatever about them.
 
 ## Next stage
 
-The food-additive screen itself. FDA (EAFUS), EFSA (E-numbers) and FSSAI (INS) publish names
-and identifiers but **no structures**, so it requires name/CAS → structure resolution with
-per-compound formula and mass validation, and full accounting of every compound that fails to
-resolve. That work is deliberately not in this repository rather than being half-done in it.
+The EU screen is done; three things would extend it, in order of how much they would change
+the answer.
+
+1. **A second endpoint.** The Tox21 viability counterscreen (AID 720634) is already
+   downloaded and used here only for QC. Modelling it alongside MMP would separate true
+   uncoupling from general cytotoxicity, which is the single largest ambiguity in what a
+   positive prediction currently means.
+2. **Mixture effects.** Every motivating study of additive mitochondrial toxicity concerns
+   combinations; the model scores one compound at a time. This is the widest gap between
+   what the model does and what the question asks.
+3. **The other regulatory lists.** FDA (EAFUS) and FSSAI (INS) publish names and identifiers
+   but no structures, so each needs the same two-evidence resolution and the same accounting
+   the EU list received. The resolver generalises; the name vocabulary in `additives.py`
+   would need extending, and its 82 controls are where that extension gets checked.
+
+The 137 unresolved EU additives are also worth a second pass. Most are genuinely structureless
+(mixtures, extracts, inorganic salts), but each is recorded with a reason and that list has
+not been read compound by compound.
 
 ## Data sources
 
