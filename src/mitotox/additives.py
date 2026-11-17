@@ -62,7 +62,12 @@ _VARIABLE_WORDS = re.compile(
     r"hydrolysed|hydrolyzed|modified|oxidised|oxidized|acetylated|phosphated|"
     r"cross-?linked|enzymatically|"
     r"esters? of|salts? of|"
-    r"mono-?\s*and\s*di"
+    r"mono-?\s*and\s*di|"
+    # "Vegetable carbon" is particulate elemental carbon, "Agar" a
+    # polysaccharide, and the "meta-" in "Metatartaric acid" denotes a
+    # polycondensate. Each is an EU name for a substance of variable
+    # composition, so each belongs here and not in a blocklist.
+    r"carbon|agar|metatartaric"
     r")\b", re.I)
 
 # Plural class names: the Union list writes a family of salts or isomers in the

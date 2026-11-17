@@ -63,6 +63,14 @@ VARIABLE = [
     "Triphosphates",
     "Fatty acids",
     "Glycolipids",
+    # Added after the first screen run let these through: each is an EU
+    # name for a substance of variable composition that the first
+    # vocabulary missed.
+    "Vegetable carbon",
+    "Agar",
+    "Metatartaric acid",
+    "Carnauba wax",
+    "Sodium carboxy methyl cellulose, Cellulose gum",
 ]
 SINGLE = [
     "Tartrazine",
@@ -85,6 +93,11 @@ SINGLE = [
     "Sodium nitrite",
     "Calcium propionate",
     "Potassium hydroxide",
+    # Negative controls for the "carbon" term: a word-boundary match must
+    # not let it swallow carbonates, carbamide or tartaric acid.
+    "Calcium carbonate",
+    "Tartaric acid",
+    "Carminic acid, Carmine",
 ]
 
 print("substances of variable composition (must all be excluded)")

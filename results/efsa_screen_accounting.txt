@@ -1,0 +1,71 @@
+==========================================================================
+EU FOOD ADDITIVE SCREEN - ACCOUNTING
+==========================================================================
+additives in the Union list (Annex II Part B)   : 339
+  resolved to a validated PubChem structure     : 202
+  (training-set molecular-weight maximum, used as a scope bound below: 1701.2 Da)
+  not resolved                                  : 137
+      no PubChem record for the E number or any name variant 95
+      checked 1 of 1 candidate CID(s); none carried both the 40
+      checked 2 of 2 candidate CID(s); none carried both the 2
+
+  excluded before scoring                       : 73
+      inorganic parent (carbon-free)                       48
+      variable composition (no single structure)           19
+      inorganic carbon species (carbonate, CO2, cyanide)   4
+      larger than anything in the training set             2
+
+SCREENED                                        : 129
+  reconciles: 202 resolved - 73 refused = 129
+
+OF THE 129 SCREENED COMPOUNDS
+  already in the Tox21 training set             : 72  (experimental label known; not a prediction)
+  genuinely out-of-sample                       : 57
+
+  applicability domain:
+      within domain                                110
+      borderline                                   16
+      outside domain                               3
+
+  flagged at the primary threshold (p >= 0.625) : 8 of 129 (6.2%)
+  flagged at the screening threshold (p >= 0.390): 11 of 129 (8.5%)
+
+  of the out-of-sample compounds only:
+      flagged at 0.625                          : 4 of 57
+      flagged at 0.390                          : 7 of 57
+
+TOP 25 BY PREDICTED PROBABILITY
+  E number  name                                  prob applicability       NN in training
+  --------------------------------------------------------------------------------------------
+  E 586     4-Hexylresorcinol                    0.998 within domain     0.68 
+  E 319     Tertiary-butyl hydroquinone (TBHQ)   0.971 within domain     0.59 
+  E 127     Erythrosine                          0.970 within domain     0.52 
+  E 321     Butylated hydroxytoluene (BHT)       0.965 within domain     0.68 
+  E 104     Quinoline Yellow                     0.954 within domain     1.00 YES
+  E 320     Butylated hydroxyanisole (BHA)       0.940 within domain     1.00 YES
+  E 100     Curcumin                             0.915 within domain     1.00 YES
+  E 310     Propyl gallate                       0.904 within domain     1.00 YES
+  E 131     Patent Blue V                        0.593 within domain     0.56 
+  E 161b    Lutein                               0.393 borderline        0.44 
+  E 122     Azorubine, Carmoisine                0.391 within domain     0.58 
+  E 142     Green S                              0.365 borderline        0.49 
+  E 124     Ponceau 4R, Cochineal Red A          0.343 within domain     0.61 
+  E 151     Brilliant Black PN                   0.234 borderline        0.46 
+  E 160e    Beta-apo-8'-carotenal (C 30)         0.182 within domain     0.87 
+  E 214     Ethyl-p-hydroxybenzoate              0.153 within domain     0.71 
+  E 215     Sodium ethyl p-hydroxybenzoate       0.153 within domain     0.71 
+  E 180     Litholrubine BK                      0.138 borderline        0.47 
+  E 161g    Canthaxanthin                        0.128 within domain     0.62 
+  E 133     Brilliant Blue FCF                   0.103 within domain     1.00 YES
+  E 110     Sunset Yellow FCF/Orange Yellow S    0.077 within domain     0.50 
+  E 120     Carminic acid, Carmine               0.067 within domain     1.00 YES
+  E 218     Methyl p-hydroxybenzoate             0.062 within domain     1.00 YES
+  E 219     Sodium methyl p-hydroxybenzoate      0.062 within domain     1.00 YES
+  E 129     Allura Red AC                        0.060 borderline        0.45 
+
+NOTE. These are PREDICTED mitochondrial-toxicity risk scores: a
+computational prioritisation for further investigation. They are not
+experimental evidence, and they support no regulatory or safety claim
+about any compound. Rows marked 'in training' are fitted values, not
+predictions. Scores for compounds outside the applicability domain are
+weakly informative at best (measured test PR-AUC 0.59 in that band).

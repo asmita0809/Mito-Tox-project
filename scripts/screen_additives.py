@@ -30,9 +30,12 @@ import pandas as pd
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src"))
 from rdkit import Chem, RDLogger
+from rdkit.Chem import Descriptors
 from mitotox import config
 from mitotox.predict import MitoToxPredictor
-from mitotox.interpretation import ALERTS, compile_alerts, match_alerts
+from mitotox.additives import (SINGLE_SUBSTANCE, classify_substance,
+                               inorganic_carbon_reason, is_inorganic_carbon)
+from mitotox.interpretation import compile_alerts, match_alerts
 from mitotox.standardize import standardize
 
 RDLogger.DisableLog("rdApp.*")
@@ -64,11 +67,21 @@ def main():
     res["validated"] = res.validated.astype(str).str.lower().isin(["true", "1"])
     n_list = len(res)
 
+    # TRAINING-SPACE BOUND, read off the training set rather than chosen. The
+    # model saw molecules from 27 to about 1700 Da; a 3,354 Da polycyclic
+    # peptide (nisin) or a 14 kDa enzyme (lysozyme) is not a molecule this
+    # fingerprint representation describes at all, and the applicability band
+    # alone understates that - it reports "outside domain" for a near-neighbour
+    # miss and for an object of the wrong kind in the same words.
+    max_train_mw = float(pd.read_csv(config.DESCRIPTORS_CSV).MolWt.max())
+
     w("=" * 74)
     w("EU FOOD ADDITIVE SCREEN - ACCOUNTING")
     w("=" * 74)
     w("additives in the Union list (Annex II Part B)   : %d" % n_list)
     w("  resolved to a validated PubChem structure     : %d" % int(res.validated.sum()))
+    w("  (training-set molecular-weight maximum, used as a scope bound "
+      "below: %.1f Da)" % max_train_mw)
     w("  not resolved                                  : %d" % int((~res.validated).sum()))
     for reason, n in Counter(res.loc[~res.validated, "reason"].fillna("")).most_common():
         w("      %-54s %d" % (str(reason)[:54], n))
@@ -79,12 +92,40 @@ def main():
 
     rows, dropped = [], []
     for _, r in cand.iterrows():
+        # SCOPE GATES, before anything is scored. A resolved structure is not
+        # the same thing as a scoreable one: a representative CID for xanthan
+        # gum is not xanthan gum, and a carbonate is not an organic compound.
+        # Both gates come from src/mitotox/additives.py, the same module the
+        # audit uses, so the two cannot disagree.
+        # Always recompute from the name. The resolution table carries a
+        # substance_class column, but it was written when the resolver ran:
+        # reading it back would let a stale label outvote the current
+        # classifier, which is precisely the drift this pipeline exists to
+        # prevent. The classifier is the single source of truth.
+        cls = classify_substance(r["name"])
+        if cls != SINGLE_SUBSTANCE:
+            dropped.append((r.e_number, r["name"],
+                            "variable composition: polymer, mixture, extract or "
+                            "class name, so no single structure represents it"))
+            continue
         std = standardize(r.smiles)
         if not std["ok"]:
             dropped.append((r.e_number, r["name"], "structure refused: " + std["reason"]))
             continue
         if not std["parent_has_carbon"]:
             dropped.append((r.e_number, r["name"], "inorganic parent (no carbon)"))
+            continue
+        parent = Chem.MolFromSmiles(std["parent_smiles"])
+        if is_inorganic_carbon(parent):
+            dropped.append((r.e_number, r["name"],
+                            "inorganic carbon species (matched %s)"
+                            % inorganic_carbon_reason(parent)))
+            continue
+        parent_mw = Descriptors.MolWt(parent)
+        if parent_mw > max_train_mw:
+            dropped.append((r.e_number, r["name"],
+                            "above the training-set molecular-weight maximum "
+                            "(%.1f Da vs %.1f Da)" % (parent_mw, max_train_mw)))
             continue
         p = pred.predict_one(r.smiles, r["name"])
         if not p["scored"]:
@@ -113,9 +154,24 @@ def main():
 
     scr = pd.DataFrame(rows).sort_values("predicted_probability", ascending=False)
     w("")
-    w("  structures refused at standardisation         : %d" % len(dropped))
-    for e, n, why in dropped[:12]:
-        w("      %-10s %-34s %s" % (e, str(n)[:34], str(why)[:40]))
+    w("  excluded before scoring                       : %d" % len(dropped))
+
+    def bucket(why):
+        s = str(why)
+        if s.startswith("variable composition"):
+            return "variable composition (no single structure)"
+        if s.startswith("inorganic carbon species"):
+            return "inorganic carbon species (carbonate, CO2, cyanide)"
+        if s.startswith("inorganic parent"):
+            return "inorganic parent (carbon-free)"
+        if s.startswith("above the training-set"):
+            return "larger than anything in the training set"
+        if s.startswith("structure refused"):
+            return "structure refused at standardisation"
+        return "not scored by the predictor"
+
+    for reason, n in Counter(bucket(w_) for _, _, w_ in dropped).most_common():
+        w("      %-52s %d" % (reason, n))
     w("")
     w("SCREENED                                        : %d" % len(scr))
     w("  reconciles: %d resolved - %d refused = %d" %
@@ -177,14 +233,17 @@ def main():
         "text.color": INK, "xtick.color": MUTED, "ytick.color": MUTED,
         "grid.color": GRID, "grid.linewidth": 0.7, "legend.frameon": False,
         "savefig.dpi": 200, "savefig.bbox": "tight"})
-    fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.2, 5.0),
-                                 gridspec_kw={"width_ratios": [1, 1.35]})
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(13.0, 5.4),
+                                 gridspec_kw={"width_ratios": [1, 1.5],
+                                              "wspace": 0.46})
 
     a1.hist(scr.predicted_probability, bins=np.linspace(0, 1, 26), color=BLUE, zorder=3)
     a1.axvline(0.625, color=ORANGE, lw=1.6)
     a1.axvline(0.390, color=MUTED, lw=1.2, ls=(0, (4, 3)))
-    a1.text(0.635, a1.get_ylim()[1] * 0.92, "0.625\nprimary", color=ORANGE, fontsize=8)
-    a1.text(0.30, a1.get_ylim()[1] * 0.92, "0.390", color=MUTED, fontsize=8, ha="right")
+    a1.text(0.645, a1.get_ylim()[1] * 0.90, "0.625\nprimary", color=ORANGE,
+            fontsize=8, ha="left", va="top")
+    a1.text(0.375, a1.get_ylim()[1] * 0.90, "0.390", color=MUTED, fontsize=8,
+            ha="right", va="top")
     a1.set_xlabel("predicted probability of MMP disruption")
     a1.set_ylabel("EU food additives")
     for s in ("top", "right"):
@@ -200,12 +259,20 @@ def main():
     b = a2.barh(np.arange(len(top)), top.predicted_probability.values, 0.6,
                 color=cols, zorder=3)
     for r_, v, ad in zip(b, top.predicted_probability.values, top.applicability):
+        # A probability of 0.998 printed as "1.00" reads as certainty, which
+        # is not what the model said. Keep a third decimal where rounding
+        # would reach 1.00 or 0.00.
+        txt = "%.3f" % v if (round(v, 2) >= 1.0 or round(v, 2) <= 0.0) else "%.2f" % v
         a2.text(v + 0.012, r_.get_y() + r_.get_height() / 2,
-                "%.2f%s" % (v, "" if ad == "within domain" else "  (%s)" % ad),
+                "%s%s" % (txt, "" if ad == "within domain" else "  (%s)" % ad),
                 va="center", color=INK, fontsize=8)
     a2.set_yticks(np.arange(len(top)))
-    a2.set_yticklabels(["%s  %s" % (e, str(n)[:28])
-                        for e, n in zip(top.e_number, top["name"])], color=INK2)
+    def _short(s, w=34):
+        s = str(s)
+        return s if len(s) <= w else s[:w - 1].rstrip() + "\u2026"
+    a2.set_yticklabels(["%s  %s" % (e, _short(n))
+                        for e, n in zip(top.e_number, top["name"])],
+                       color=INK2, fontsize=8.5)
     a2.set_xlim(0, 1.28)
     a2.set_xlabel("predicted probability")
     for s in ("top", "right"):

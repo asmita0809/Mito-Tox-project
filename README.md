@@ -28,11 +28,45 @@ out-of-fold predictions, a single frozen test evaluation, interpretation, and th
 predictor. Reproduced byte-for-byte in the pinned environment; see
 `results/reproduction_check.txt`.
 
-**In progress — the EU food-additive screen.** Acquisition of Annex II Part B of
-Regulation (EC) No 1333/2008, parsing of the 339 authorised additives, and structure
-resolution via PubChem are implemented. **The screen has not been run, and no additive
-predictions exist in this repository.** Structure resolution is being re-run after the
-defect described next.
+**Complete — the EU food-additive screen.** Annex II Part B of Regulation (EC)
+No 1333/2008 parsed to 339 authorised additives, resolved to structures through PubChem,
+gated, and scored once with the frozen model. Results in
+`results/tables/efsa_additive_screen.csv` and `results/efsa_screen_accounting.txt`.
+
+| step | n | |
+|---|---|---|
+| additives in the Union list | 339 | Annex II Part B |
+| resolved to a validated structure | 202 | 174 by E number **and** name, 28 by exact full name |
+| not resolved | 137 | recorded with a reason each |
+| excluded before scoring | 73 | 48 carbon-free, 19 variable composition, 4 inorganic carbon, 2 larger than anything in training |
+| **screened** | **129** | reconciles: 202 &minus; 73 |
+| &nbsp;&nbsp;already in the Tox21 training set | 72 | fitted values, **not** predictions |
+| &nbsp;&nbsp;genuinely out-of-sample | 57 | |
+
+Eight of the 129 clear the primary threshold (p &ge; 0.625); four of those are
+out-of-sample. The highest-ranked compounds the model had never seen are
+**4-hexylresorcinol (0.998)**, **TBHQ (0.971)**, **erythrosine (0.970)** and
+**BHT (0.965)**, all within the applicability domain. BHA, curcumin, propyl gallate and
+quinoline yellow also rank at the top but are *in the training set*, so their scores are
+fitted values and the table marks them as such rather than letting them pass as
+predictions.
+
+That the phenolic antioxidants surface first is consistent with the published
+mitochondrial literature, which is reassuring but not independent evidence: it is the same
+chemical space the model was trained on. **These are computational prioritisations for
+further testing. They are not experimental results and they support no safety or
+regulatory claim about any compound.**
+
+Three scope gates run before anything is scored, each exclusion counted and reconciled.
+Substances of variable composition (polymers, gums, modified starches, extracts, plural
+class names) are excluded because no single structure represents them — a representative
+CID for xanthan gum is not xanthan gum. Inorganic carbon species (carbonate, CO₂,
+cyanide) are excluded by substructure plus a size bound, because "contains a carbon atom"
+would let calcium carbonate through; urea deliberately passes. And anything heavier than
+the largest molecule in the training set (1,701 Da) is excluded, which removes nisin
+(3,354 Da) and lysozyme — objects a small-molecule fingerprint does not describe at all,
+and which the applicability band alone would report in the same words as an ordinary
+near-neighbour miss.
 
 **A defect found in this repository's own code.** The first version of the structure
 resolver accepted a PubChem compound if its synonym list contained the additive's E number.

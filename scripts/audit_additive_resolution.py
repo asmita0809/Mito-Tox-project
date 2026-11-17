@@ -102,7 +102,7 @@ def main():
         name, title = r["name"], r["pubchem_title"]
         mol = Chem.MolFromSmiles(r["smiles"]) if r["smiles"] else None
         agrees = title_agrees(name, title)
-        cls = r.get("substance_class") or classify_substance(name)
+        cls = classify_substance(name)   # never the stored column; see screen
         variable = cls == VARIABLE_COMPOSITION
         inorg_c = is_inorganic_carbon(mol)
         cfree = (mol is not None
@@ -153,7 +153,12 @@ def main():
           % sum(1 for r in out if r["inorganic_carbon"]))
     print("  carbon-free structure                       : %d"
           % sum(1 for r in out if r["carbon_free"]))
-    print("  scoreable single organic compound           : %d" % len(clean))
+    print("  no flag of any kind                         : %d" % len(clean))
+    print("")
+    print("  Note: that last figure is STRICTER than the screen's own gates.")
+    print("  It also drops rows flagged only for a title/name disagreement,")
+    print("  which is a prompt for human review and not an exclusion rule, so")
+    print("  scripts/screen_additives.py scores more compounds than this.")
     print("")
     if dis:
         print("TITLE DISAGREES WITH THE UNION-LIST NAME - read every one of these")
