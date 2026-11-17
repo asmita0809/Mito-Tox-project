@@ -20,6 +20,39 @@ included here.
 
 Class prevalence is 14.8%, so a random classifier scores PR-AUC ≈ 0.148.
 
+## Project status
+
+**Complete and validated — the Tox21 MMP model.** Curation, analogue-disjoint splitting,
+the pre-registered 108-configuration search (540 fits), threshold selection on development
+out-of-fold predictions, a single frozen test evaluation, interpretation, and the frozen
+predictor. Reproduced byte-for-byte in the pinned environment; see
+`results/reproduction_check.txt`.
+
+**In progress — the EU food-additive screen.** Acquisition of Annex II Part B of
+Regulation (EC) No 1333/2008, parsing of the 339 authorised additives, and structure
+resolution via PubChem are implemented. **The screen has not been run, and no additive
+predictions exist in this repository.** Structure resolution is being re-run after the
+defect described next.
+
+**A defect found in this repository's own code.** The first version of the structure
+resolver accepted a PubChem compound if its synonym list contained the additive's E number.
+That rule is not specific: supplier catalogue codes of the form `E-1404` are common, and
+once punctuation is stripped they are indistinguishable from a food-additive E number. The
+failure was also circular, because PubChem's name search returns those same catalogue
+entries, which the validation step then confirmed against the synonym that had produced the
+hit. 29 of 248 resolved structures were wrong — Erlotinib Hydrochloride for E 1404
+(oxidised starch), Spiperone for E 525 (potassium hydroxide), Androstenone for E 282
+(calcium propionate). Had the screen been run, a cancer drug would have appeared in a table
+of food additives.
+
+Validation now requires two independent lines of evidence, the E number *and* the name, or
+an exact match to the full Union-list name. A standing audit compares every resolved
+structure's PubChem title against its Union-list name
+(`scripts/audit_additive_resolution.py`), and substances that cannot have a single structure
+at all — polymers, gums, modified starches, extracts, plural class names — are excluded by
+name before scoring rather than represented by an arbitrary member
+(`src/mitotox/additives.py`, with 67 controls in `tests/test_additive_gates.py`).
+
 ---
 
 ## What makes this repository worth reading
@@ -344,9 +377,27 @@ python tests/test_structural_alerts.py              # SMARTS positive/negative c
 python tests/test_download_pagination.py            # downloader, against a mock API
 ```
 
-Every result in this README was regenerated on a second machine with different Python
-(3.10 vs 3.13) and scikit-learn (1.7.2 vs 1.8.0) versions and reproduced **bit-identically**:
-test PR-AUC 0.7090, ROC-AUC 0.9259, MCC 0.6117, confusion matrix 980/47/66/112.
+**Reproduction.** Re-running `scripts/select_model.py` and `scripts/final_test_eval.py`
+from the committed inputs, in the pinned environment of `requirements.txt` (Python 3.10.12,
+scikit-learn 1.7.2, xgboost 3.2.0), reproduces all five output files byte-for-byte —
+verified 16 November 2026.
+
+In a newer environment with nothing pinned (Python 3.13.16, scikit-learn 1.9.1,
+xgboost 3.4.1) the selection stage is still byte-identical, but the refit is not: test
+PR-AUC 0.6825 against 0.7090, MCC 0.576 against 0.612, and 35 of the 1,205 test compounds
+change class at the primary threshold. The difference is attributable to XGBoost — the
+selection stage reads only stored out-of-fold predictions and reproduces exactly, while the
+stage that fits an `XGBClassifier` does not, across an XGBoost minor version. So
+`requirements.txt` is a requirement, not a convenience.
+
+The shift is small against the bootstrap 95% CI on the same metric ([0.638, 0.775], width
+0.137): both environments put the model far above the 0.148 no-skill baseline and rank the
+108 candidate configurations identically, so the conclusion is stable where the digits are
+not. Full figures in `results/reproduction_check.txt`.
+
+An earlier version of this README claimed bit-identical reproduction across Python and
+scikit-learn versions. That claim did not survive being checked, and has been replaced by
+the measured figures above.
 
 ## Repository layout
 
