@@ -17,6 +17,15 @@ be scored, is counted and given a reason.
 
 Class prevalence is 14.8%, so a no-skill classifier scores PR-AUC ≈ 0.148.
 
+![ROC and precision-recall curves for the frozen XGBoost model. Development out-of-fold and
+frozen test curves lie almost on top of each other: ROC-AUC 0.922 against 0.926, average
+precision 0.746 against 0.709. The precision-recall panel marks the 0.148 prevalence baseline a
+no-skill classifier would reach.](results/figures/roc_pr_curves.png)
+
+Development and frozen test curves lie almost on top of each other, which is the point of the
+figure: the test set was never used for any modelling decision, and performance on it did not
+collapse.
+
 ---
 
 ## Why mitochondrial toxicity, and why food additives
@@ -131,7 +140,11 @@ excluded =  "Inconclusive"   retained and flagged, never coerced into a class
 
 ## Dataset construction
 
-![Dataset composition](results/figures/dataset_composition.png)
+![Left, the final curated dataset by subset and label: development holds 4,013 inactive and 720
+active compounds, the frozen test set 1,027 inactive and 178 active. Right, the 1,637 parent
+structures excluded from 7,575, by reason: 1,527 inconclusive-only, 50 inorganic, 44 CID-level
+conflicts, 15 parent-level conflicts and 1
+unparseable.](results/figures/dataset_composition.png)
 
 ```
 10,486 Tox21 sample records (SIDs)     149 have neither CID nor structure
@@ -245,7 +258,7 @@ Best configuration in each model family:
 | XGBoost | 48 | **0.748 ± 0.038** | 0.922 ± 0.016 | Morgan + descriptors |
 | random forest | 36 | 0.732 ± 0.046 | 0.918 ± 0.016 | Morgan + descriptors |
 | logistic regression | 24 | 0.625 ± 0.029 | 0.885 ± 0.021 | Morgan + descriptors |
-| no-skill baseline | — | 0.148 | 0.500 | — |
+| no-skill baseline | — | 0.152 | 0.500 | — |
 
 Best PR-AUC for every family and representation pair:
 
@@ -258,7 +271,10 @@ Best PR-AUC for every family and representation pair:
 Averaged over all 36 configurations fitted on each representation: Morgan alone 0.600,
 Morgan + descriptors 0.685, MACCS + descriptors 0.678.
 
-![Model comparison](results/figures/model_comparison.png)
+![Cross-validated PR-AUC for all 108 pre-registered configurations, grouped by model family
+and molecular representation. XGBoost on Morgan plus six descriptors is highest at 0.748;
+adding the descriptors to Morgan is worth more than the choice of model
+family.](results/figures/model_comparison.png)
 
 The six physicochemical descriptors matter more than any other choice in the grid. Adding them
 to Morgan moves the best XGBoost model from 0.648 to 0.748 and the best random forest from 0.646
@@ -282,9 +298,11 @@ colsample_bytree=0.8, tree_method=hist, random_state=42`. CV PR-AUC **0.7476 ± 
 
 ### Frozen test set, scored exactly once
 
-![ROC and PR curves](results/figures/roc_pr_curves.png)
+The ROC and precision-recall curves for this evaluation are at the top of this README.
 
-![Confusion matrices](results/figures/confusion_matrices.png)
+![Confusion matrices at the three pre-registered thresholds. At the primary threshold of 0.625
+the counts are 980 true negatives, 47 false positives, 66 false negatives and 112 true
+positives.](results/figures/confusion_matrices.png)
 
 | | development (CV) | frozen test | gap |
 |---|---|---|---|
@@ -313,7 +331,10 @@ reason.
 
 ### Performance depends on chemical proximity
 
-![Performance by proximity](results/figures/performance_by_proximity.png)
+![Frozen-test PR-AUC split by each test compound's Tanimoto similarity to its nearest
+development neighbour. Performance falls from 0.82 in the 0.5 to 0.6 band to 0.59 below 0.4,
+and the two most distant bands hold 480 of the 1,205 test
+compounds.](results/figures/performance_by_proximity.png)
 
 | nearest-neighbour Tanimoto | n | positives | PR-AUC |
 |---|---|---|---|
@@ -331,7 +352,9 @@ application, and it is why `predict.py` returns an applicability band alongside 
 
 ## Interpretation
 
-![SHAP importance](results/figures/shap_importance.png)
+![Mean absolute SHAP contribution per feature on the development set. MolLogP dominates at
+1.394, followed by MolWt at 0.882; TPSA and the hydrogen-bond counts contribute far
+less.](results/figures/shap_importance.png)
 
 Computed on the development set. Direction is the Spearman correlation between a feature's value
 and its own SHAP contribution. Mean signed SHAP is not used: on a 15%-prevalence dataset its
@@ -349,7 +372,11 @@ donors and acceptors are nearly identical between the classes.
 
 Interpretation only, development split only.
 
-![Alert enrichment](results/figures/alert_enrichment.png)
+![Odds ratios on a log scale for 12 of the 13 structural alerts, on the development split;
+ortho-quinone is absent because it matches no development compound. Nitrophenol (54.4),
+salicylanilide (45.1) and anthraquinone (42.1) are strongly enriched among actives, while
+Michael acceptors sit at 1.0 across 388 compounds and epoxides at 0.4, neither
+significant.](results/figures/alert_enrichment.png)
 
 | alert | n | odds ratio | Fisher p |
 |---|---|---|---|
@@ -386,7 +413,10 @@ to structures through PubChem, gated, and scored once with the frozen model. Res
 | &nbsp;&nbsp;already in the Tox21 training set | 72 | fitted values, **not** predictions |
 | &nbsp;&nbsp;genuinely out-of-sample | 57 | |
 
-![EU additive screen](results/figures/efsa_screen.png)
+![The EU additive screen. Left, the distribution of predicted probabilities across all 129
+scored additives, with the 0.625 and 0.390 thresholds marked. Right, the highest-ranked
+additives that are not in the Tox21 training set, led by 4-hexylresorcinol at 0.998, TBHQ at
+0.971, erythrosine at 0.970 and BHT at 0.965.](results/figures/efsa_screen.png)
 
 Eight of the 129 clear the primary threshold of p ≥ 0.625, four of them out-of-sample. The
 highest-ranked compounds the model had not seen are 4-hexylresorcinol (0.998), TBHQ (0.971),

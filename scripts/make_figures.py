@@ -81,8 +81,9 @@ alerts = pd.read_csv(f"{T}/structural_alert_enrichment_dev.csv")
 oof = np.load(f"{P}/oof_predictions_dev.npz", allow_pickle=True)
 
 # ============================================== 1. dataset composition
-fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.2, 3.9),
-                             gridspec_kw={"width_ratios": [1, 1.25]})
+fig, (a1, a2) = plt.subplots(1, 2, figsize=(11.0, 3.9),
+                             gridspec_kw={"width_ratios": [1, 1.25],
+                                          "wspace": 0.42})
 sub = splits.groupby(["subset", "label"]).size().unstack(fill_value=0)
 sub = sub.loc[["development", "test"]]
 xs = np.arange(2)
@@ -100,12 +101,26 @@ a1.set_ylabel("compounds (parent structures)")
 a1.set_ylim(0, 4600)
 a1.legend(loc="upper right")
 tidy(a1)
+_pa = sub[1].sum() / sub.values.sum()
+_pd_ = sub.loc["development", 1] / sub.loc["development"].sum()
+_pt = sub.loc["test", 1] / sub.loc["test"].sum()
 title(a1, "Final curated dataset",
-      "15.12% active overall; 15.21% development, 14.77% test")
+      f"{_pa:.2%} active overall; {_pd_:.2%} development, {_pt:.2%} test")
 
-exc = [("Inconclusive only", 1527), ("Inorganic parent", 50),
-       ("CID-level conflict", 44), ("Parent-level conflict", 15),
-       ("Unparseable parent", 1)]
+# Read from the excluded table rather than hard-coding. These five counts were
+# literals here, which meant the figure would keep showing the old numbers if
+# the dataset were ever rebuilt - a silent disagreement between a figure and
+# the data it claims to describe.
+_LABELS = {"inconclusive_only": "Inconclusive only",
+           "inorganic_parent": "Inorganic parent",
+           "conflict_cid_level": "CID-level conflict",
+           "conflict_parent_level": "Parent-level conflict",
+           "parent_unparseable": "Unparseable parent"}
+_excl = pd.read_csv(f"{P}/tox21_mmp_excluded.csv")
+_counts = _excl.exclusion_reason.value_counts()
+exc = [(_LABELS.get(k, k), int(v)) for k, v in _counts.items()]
+n_excluded = int(len(_excl))
+n_parents = n_excluded + int(len(splits))
 ys = np.arange(len(exc))[::-1]
 b = a2.barh(ys, [e[1] for e in exc], 0.55, color=BLUE, zorder=3)
 for r, (_, v) in zip(b, exc):
@@ -114,10 +129,10 @@ for r, (_, v) in zip(b, exc):
 a2.set_yticks(ys)
 a2.set_yticklabels([e[0] for e in exc], color=INK2)
 a2.set_xlabel("parent structures excluded")
-a2.set_xlim(0, 1760)
+a2.set_xlim(0, max(v for _, v in exc) * 1.16)
 tidy(a2, "x")
 title(a2, "Excluded and retained, never discarded",
-      "1,637 of 7,575 parents excluded; all kept in a flagged table")
+      f"{n_excluded:,} of {n_parents:,} parents excluded; all kept in a flagged table")
 fig.savefig(f"{F}/dataset_composition.png")
 plt.close(fig)
 
@@ -149,13 +164,15 @@ ax.set_xticklabels(replab, color=INK2)
 ax.set_ylabel("cross-validated PR-AUC (mean of 5 folds)")
 ax.set_ylim(0, 0.92)
 ax.axhline(train.label.mean(), color=MUTED, lw=1.0, ls=(0, (4, 3)), zorder=2)
-ax.text(-0.45, train.label.mean() + 0.018, "random baseline (prevalence 0.151)",
-        color=MUTED, fontsize=7.8, ha="left")
+# The baseline is named in the subtitle rather than annotated in the plot.
+# The bars run to y=0, so there is no horizontal band inside the axes where
+# a label that long does not collide with one of them.
 ax.legend(loc="upper left", ncol=3)
 tidy(ax)
 title(ax, "Best configuration per representation and model family",
       "error bars: standard deviation across the 5 development CV folds; "
-      "108 configurations, 540 fits")
+      "108 configurations, 540 fits; dashed line is the random baseline at "
+      f"prevalence {train.label.mean():.3f}")
 fig.savefig(f"{F}/model_comparison.png")
 plt.close(fig)
 
