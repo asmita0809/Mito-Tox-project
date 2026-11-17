@@ -34,6 +34,14 @@ jobs:
         # example of it, and must not fire on the negative controls.
         run: python tests/test_structural_alerts.py
 
+      - name: Additive scope gates
+        # The gates that decide which substances may be scored at all. A gap
+        # here is what put Erlotinib in a food-additive table during
+        # development, so the controls cover both the classifier and the
+        # inorganic-carbon test, including the negative controls that keep
+        # carbonate out without catching carbamide.
+        run: python tests/test_additive_gates.py
+
       - name: Union-list parser fixture
         # Regulation 1333/2008 Part A contains a lookalike E-number table that
         # is not the Union list; both failure modes still produce a plausible
@@ -85,6 +93,9 @@ jobs:
 
       - name: SMARTS alert controls
         run: python tests/test_structural_alerts.py
+
+      - name: Additive scope gates
+        run: python tests/test_additive_gates.py
 
       - name: Union-list parser fixture
         run: python tests/test_efsa_parser.py
